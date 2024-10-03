@@ -176,6 +176,8 @@ impl From<VarInt> for ConnectionState {
         }
     }
 }
+
+#[derive(Debug, Clone)]
 pub struct RawPacket {
     pub id: VarInt,
     pub bytebuf: ByteBuffer,
