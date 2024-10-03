@@ -14,6 +14,7 @@ pub mod slot;
 /// To current Minecraft protocol
 /// Don't forget to change this when porting
 pub const CURRENT_MC_PROTOCOL: u32 = 767;
+pub const CURRENT_MC_VERSION: &str = "1.21.1";
 
 pub const MAX_PACKET_SIZE: i32 = 2097152;
 
