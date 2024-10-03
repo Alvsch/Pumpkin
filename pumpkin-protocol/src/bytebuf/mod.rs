@@ -21,8 +21,13 @@ impl ByteBuffer {
             buffer: BytesMut::new(),
         }
     }
+    
     pub fn new(buffer: BytesMut) -> Self {
         Self { buffer }
+    }
+
+    pub fn into_inner(self) -> BytesMut {
+        self.buffer
     }
 
     pub fn get_var_int(&mut self) -> Result<VarInt, DeserializerError> {
