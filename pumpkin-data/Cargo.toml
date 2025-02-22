@@ -5,13 +5,13 @@ edition.workspace = true
 build = "build/build.rs"
 
 [dependencies]
-pumpkin-util = { path = "../pumpkin-util" }
+pumpkin-util.workspace = true
 
 serde.workspace = true
 serde_json.workspace = true
 
 [build-dependencies]
-pumpkin-util = { path = "../pumpkin-util" }
+pumpkin-util.workspace = true
 
 serde.workspace = true
 serde_json.workspace = true

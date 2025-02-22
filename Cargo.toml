@@ -32,6 +32,17 @@ inherits = "release"
 debug = true
 
 [workspace.dependencies]
+pumpkin-api-macros = { path = "pumpkin-api-macros" }
+pumpkin-config = { path = "pumpkin-config" }
+pumpkin-data = { path = "pumpkin-data" }
+pumpkin-inventory = { path = "pumpkin-inventory" }
+pumpkin-macros = { path = "pumpkin-macros" }
+pumpkin-nbt = { path = "pumpkin-nbt" }
+pumpkin-protocol = { path = "pumpkin-protocol" }
+pumpkin-registry = { path = "pumpkin-registry" }
+pumpkin-util = { path = "pumpkin-util" }
+pumpkin-world = { path = "pumpkin-world" }
+
 log = "0.4"
 tokio = { version = "1.43", features = [
     "macros",

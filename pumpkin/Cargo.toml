@@ -17,15 +17,15 @@ doctest = false
 
 [dependencies]
 # pumpkin
-pumpkin-util = { path = "../pumpkin-util" }
-pumpkin-nbt = { path = "../pumpkin-nbt" }
-pumpkin-config = { path = "../pumpkin-config" }
-pumpkin-inventory = { path = "../pumpkin-inventory" }
-pumpkin-world = { path = "../pumpkin-world" }
-pumpkin-data = { path = "../pumpkin-data" }
-pumpkin-protocol = { path = "../pumpkin-protocol" }
-pumpkin-registry = { path = "../pumpkin-registry" }
-pumpkin-macros = { path = "../pumpkin-macros" }
+pumpkin-util.workspace = true
+pumpkin-nbt.workspace = true
+pumpkin-config.workspace = true
+pumpkin-inventory.workspace = true
+pumpkin-world.workspace = true
+pumpkin-data.workspace = true
+pumpkin-protocol.workspace = true
+pumpkin-registry.workspace = true
+pumpkin-macros.workspace = true
 
 log.workspace = true
 crossbeam.workspace = true

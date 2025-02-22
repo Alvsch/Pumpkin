@@ -7,7 +7,7 @@ edition.workspace = true
 proc-macro = true
 
 [dependencies]
-pumpkin-data = { path = "../pumpkin-data" }
+pumpkin-data.workspace = true
 
 serde.workspace = true
 serde_json.workspace = true

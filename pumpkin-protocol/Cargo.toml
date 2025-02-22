@@ -11,10 +11,10 @@ clientbound = []
 query = []
 
 [dependencies]
-pumpkin-nbt = { path = "../pumpkin-nbt" }
-pumpkin-data = { path = "../pumpkin-data" }
-pumpkin-macros = { path = "../pumpkin-macros" }
-pumpkin-util = { path = "../pumpkin-util" }
+pumpkin-nbt.workspace = true
+pumpkin-data.workspace = true
+pumpkin-macros.workspace = true
+pumpkin-util.workspace = true
 
 uuid.workspace = true
 serde.workspace = true

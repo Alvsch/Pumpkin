@@ -4,12 +4,12 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-pumpkin-nbt = { path = "../pumpkin-nbt" }
-pumpkin-util = { path = "../pumpkin-util" }
-pumpkin-config = { path = "../pumpkin-config" }
-pumpkin-macros = { path = "../pumpkin-macros" }
-pumpkin-data = { path = "../pumpkin-data" }
-pumpkin-protocol = { path = "../pumpkin-protocol" }
+pumpkin-nbt.workspace = true
+pumpkin-util.workspace = true
+pumpkin-config.workspace = true
+pumpkin-macros.workspace = true
+pumpkin-data.workspace = true
+pumpkin-protocol.workspace = true
 
 bytes.workspace = true
 

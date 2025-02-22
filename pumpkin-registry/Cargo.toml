@@ -4,9 +4,9 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-pumpkin-data = { path = "../pumpkin-data" }
-pumpkin-protocol = { path = "../pumpkin-protocol" }
-pumpkin-util = { path = "../pumpkin-util" }
+pumpkin-data.workspace = true
+pumpkin-protocol.workspace = true
+pumpkin-util.workspace = true
 
 indexmap = { version = "2.7", features = ["serde"] }
 

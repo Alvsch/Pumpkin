@@ -4,7 +4,7 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-pumpkin-nbt = { path = "../pumpkin-nbt" }
+pumpkin-nbt.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 bytes.workspace = true

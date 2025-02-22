@@ -4,11 +4,11 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-pumpkin-protocol = { path = "../pumpkin-protocol" }
-pumpkin-data = { path = "../pumpkin-data" }
+pumpkin-protocol.workspace = true
+pumpkin-data.workspace = true
 
 pumpkin-registry = {path = "../pumpkin-registry"}
-pumpkin-util = { path = "../pumpkin-util" }
+pumpkin-util.workspace = true
 
 log.workspace = true
 rayon.workspace = true
