@@ -1,3 +1,4 @@
+pub mod coordinates;
 pub mod gamemode;
 pub mod math;
 pub mod permission;
@@ -9,6 +10,16 @@ pub use gamemode::GameMode;
 pub use permission::PermissionLvl;
 
 use serde::{Deserialize, Serialize};
+
+pub const WORLD_HEIGHT: usize = 384;
+pub const WORLD_LOWEST_Y: i16 = -64;
+pub const WORLD_MAX_Y: i16 = WORLD_HEIGHT as i16 - WORLD_LOWEST_Y.abs();
+pub const DIRECT_PALETTE_BITS: u32 = 15;
+
+pub const CHUNK_AREA: usize = 16 * 16;
+pub const SUBCHUNK_VOLUME: usize = CHUNK_AREA * 16;
+pub const SUBCHUNKS_COUNT: usize = WORLD_HEIGHT / 16;
+pub const CHUNK_VOLUME: usize = CHUNK_AREA * WORLD_HEIGHT;
 
 #[derive(PartialEq, Serialize, Deserialize, Clone)]
 pub enum Difficulty {

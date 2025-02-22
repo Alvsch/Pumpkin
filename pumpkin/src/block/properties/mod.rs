@@ -1,15 +1,10 @@
 use std::{collections::HashMap, sync::Arc};
 
 use async_trait::async_trait;
-use pumpkin_protocol::server::play::SUseItemOn;
+use pumpkin_data::registry::{BLOCKS, Block, State};
+use pumpkin_protocol::{codec::item::ItemStack, server::play::SUseItemOn};
 use pumpkin_util::math::position::BlockPos;
-use pumpkin_world::{
-    block::{
-        BlockDirection,
-        registry::{BLOCKS, Block, State},
-    },
-    item::ItemStack,
-};
+use pumpkin_world::block::BlockDirection;
 
 pub(crate) mod age;
 pub(crate) mod attachment;

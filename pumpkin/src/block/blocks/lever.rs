@@ -1,10 +1,10 @@
 use crate::entity::player::Player;
 use async_trait::async_trait;
-use pumpkin_data::item::Item;
+use pumpkin_data::{item::Item, registry::Block};
 use pumpkin_macros::pumpkin_block;
 use pumpkin_protocol::server::play::SUseItemOn;
 use pumpkin_util::math::position::BlockPos;
-use pumpkin_world::block::{BlockDirection, registry::Block};
+use pumpkin_world::block::BlockDirection;
 
 use crate::{
     block::{properties::Direction, pumpkin_block::PumpkinBlock, registry::BlockActionResult},

@@ -5,6 +5,7 @@ use crossbeam::atomic::AtomicCell;
 use pumpkin_data::entity::EffectType;
 use pumpkin_data::{damage::DamageType, sound::Sound};
 use pumpkin_nbt::tag::NbtTag;
+use pumpkin_protocol::codec::item::ItemStack;
 use pumpkin_protocol::{
     client::play::{
         CDamageEvent, CEntityStatus, CSetEquipment, EquipmentSlot, MetaDataType, Metadata,
@@ -12,7 +13,6 @@ use pumpkin_protocol::{
     codec::slot::Slot,
 };
 use pumpkin_util::math::vector3::Vector3;
-use pumpkin_world::item::ItemStack;
 use tokio::sync::Mutex;
 
 use super::{Entity, EntityId, NBTStorage, effect::Effect};

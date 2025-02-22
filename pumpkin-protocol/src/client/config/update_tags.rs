@@ -2,10 +2,10 @@ use bytes::BufMut;
 use pumpkin_data::{
     fluid::Fluid,
     packet::clientbound::CONFIG_UPDATE_TAGS,
+    registry,
     tag::{RegistryKey, TAGS},
 };
 use pumpkin_macros::client_packet;
-use pumpkin_world::block::registry;
 
 use crate::{
     ClientPacket,

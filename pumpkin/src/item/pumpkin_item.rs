@@ -2,8 +2,8 @@ use crate::entity::player::Player;
 use crate::server::Server;
 use async_trait::async_trait;
 use pumpkin_data::item::Item;
+use pumpkin_data::registry::Block;
 use pumpkin_util::math::position::BlockPos;
-use pumpkin_world::block::registry::Block;
 
 pub trait ItemMetadata {
     const ID: u16;

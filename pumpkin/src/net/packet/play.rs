@@ -16,6 +16,8 @@ use crate::{
 use pumpkin_config::ADVANCED_CONFIG;
 use pumpkin_data::entity::{EntityType, entity_from_egg};
 use pumpkin_data::item::Item;
+use pumpkin_data::registry::get_block_collision_shapes;
+use pumpkin_data::registry::{Block, get_block_by_item};
 use pumpkin_data::sound::Sound;
 use pumpkin_data::sound::SoundCategory;
 use pumpkin_data::world::CHAT;
@@ -25,6 +27,7 @@ use pumpkin_macros::block_entity;
 use pumpkin_protocol::client::play::{
     CBlockEntityData, COpenSignEditor, CSetContainerSlot, CSetHeldItem, EquipmentSlot,
 };
+use pumpkin_protocol::codec::item::ItemStack;
 use pumpkin_protocol::codec::slot::Slot;
 use pumpkin_protocol::codec::var_int::VarInt;
 use pumpkin_protocol::server::play::{SCookieResponse as SPCookieResponse, SUpdateSign};
@@ -49,13 +52,10 @@ use pumpkin_util::{
     math::{vector3::Vector3, wrap_degrees},
     text::TextComponent,
 };
+use pumpkin_util::{WORLD_LOWEST_Y, WORLD_MAX_Y};
+use pumpkin_world::block::BlockDirection;
 use pumpkin_world::block::interactive::sign::Sign;
-use pumpkin_world::block::registry::Block;
-use pumpkin_world::block::registry::get_block_collision_shapes;
-use pumpkin_world::block::{BlockDirection, registry::get_block_by_item};
-use pumpkin_world::item::ItemStack;
 
-use pumpkin_world::{WORLD_LOWEST_Y, WORLD_MAX_Y};
 use thiserror::Error;
 
 #[derive(Debug, Error)]

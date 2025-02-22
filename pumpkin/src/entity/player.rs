@@ -1,4 +1,4 @@
-use pumpkin_world::block::registry::State;
+use pumpkin_data::registry::State;
 use std::{
     num::NonZeroU8,
     sync::{
@@ -30,6 +30,7 @@ use pumpkin_protocol::{
         CSystemChatMessage, CTitleText, CUnloadChunk, CUpdateMobEffect, GameEvent, MetaDataType,
         PlayerAction,
     },
+    codec::item::ItemStack,
     server::play::{
         SChatCommand, SChatMessage, SClientCommand, SClientInformationPlay, SClientTickEnd,
         SCommandSuggestion, SConfirmTeleport, SInteract, SPickItemFromBlock, SPlayerAbilities,
@@ -61,7 +62,7 @@ use pumpkin_util::{
     permission::PermissionLvl,
     text::TextComponent,
 };
-use pumpkin_world::{cylindrical_chunk_iterator::Cylindrical, item::ItemStack};
+use pumpkin_world::cylindrical_chunk_iterator::Cylindrical;
 use tokio::sync::{Mutex, Notify, RwLock};
 
 use super::{

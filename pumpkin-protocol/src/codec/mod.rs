@@ -4,7 +4,9 @@ use bytes::{Buf, BufMut};
 use thiserror::Error;
 
 pub mod bit_set;
+pub mod chunk;
 pub mod identifier;
+pub mod item;
 pub mod slot;
 pub mod var_int;
 pub mod var_long;

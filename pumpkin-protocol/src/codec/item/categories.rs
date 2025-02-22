@@ -1,4 +1,4 @@
-use crate::item::ItemStack;
+use super::ItemStack;
 
 impl ItemStack {
     pub fn is_sword(&self) -> bool {

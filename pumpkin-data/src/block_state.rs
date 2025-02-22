@@ -1,4 +1,4 @@
-use super::registry::{get_block, get_state_by_state_id};
+use crate::registry::{get_block, get_state_by_state_id};
 
 #[derive(Clone, Copy, Debug, Eq)]
 pub struct BlockState {

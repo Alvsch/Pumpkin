@@ -1,7 +1,6 @@
 use crate::container_click::MouseClick;
 use crate::player::PlayerInventory;
 use pumpkin_data::screen::WindowType;
-use pumpkin_world::item::ItemStack;
 
 pub mod container_click;
 mod crafting;
@@ -13,6 +12,7 @@ pub mod window_property;
 
 pub use error::InventoryError;
 pub use open_container::*;
+use pumpkin_protocol::codec::item::ItemStack;
 
 pub struct ContainerStruct<const SLOTS: usize>([Option<ItemStack>; SLOTS]);
 

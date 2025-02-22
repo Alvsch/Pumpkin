@@ -14,7 +14,6 @@ query = []
 pumpkin-nbt = { path = "../pumpkin-nbt" }
 pumpkin-data = { path = "../pumpkin-data" }
 pumpkin-macros = { path = "../pumpkin-macros" }
-pumpkin-world = { path = "../pumpkin-world" }
 pumpkin-util = { path = "../pumpkin-util" }
 
 uuid.workspace = true

@@ -1,9 +1,11 @@
-use pumpkin_util::math::{vector2::Vector2, vector3::Vector3};
+use pumpkin_protocol::codec::chunk::{ChunkData, Subchunks};
+use pumpkin_util::{
+    WORLD_LOWEST_Y, WORLD_MAX_Y,
+    coordinates::ChunkRelativeBlockCoordinates,
+    math::{vector2::Vector2, vector3::Vector3},
+};
 
 use crate::{
-    WORLD_LOWEST_Y, WORLD_MAX_Y,
-    chunk::{ChunkData, Subchunks},
-    coordinates::ChunkRelativeBlockCoordinates,
     generation::{
         GlobalRandomConfig, Seed, WorldGenerator, generator::GeneratorInit,
         noise_router::proto_noise_router::GlobalProtoNoiseRouter, proto_chunk::ProtoChunk,

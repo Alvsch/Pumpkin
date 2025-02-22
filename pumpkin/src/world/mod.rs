@@ -23,13 +23,11 @@ use pumpkin_config::BasicConfiguration;
 use pumpkin_data::{
     entity::EntityType,
     particle::Particle,
+    registry::{get_block_and_state_by_state_id, get_block_by_state_id, get_state_by_state_id},
     sound::{Sound, SoundCategory},
     world::WorldEvent,
 };
 use pumpkin_macros::send_cancellable;
-use pumpkin_protocol::client::play::{
-    CBlockUpdate, CDisguisedChatMessage, CRespawn, CSetBlockDestroyStage, CWorldEvent,
-};
 use pumpkin_protocol::{
     ClientPacket,
     client::play::{
@@ -38,18 +36,17 @@ use pumpkin_protocol::{
     },
 };
 use pumpkin_protocol::{client::play::CLevelEvent, codec::identifier::Identifier};
+use pumpkin_protocol::{
+    client::play::{
+        CBlockUpdate, CDisguisedChatMessage, CRespawn, CSetBlockDestroyStage, CWorldEvent,
+    },
+    codec::chunk::ChunkData,
+};
 use pumpkin_registry::DimensionType;
-use pumpkin_util::math::vector2::Vector2;
 use pumpkin_util::math::{position::BlockPos, vector3::Vector3};
 use pumpkin_util::text::{TextComponent, color::NamedColor};
-use pumpkin_world::chunk::ChunkData;
+use pumpkin_util::{coordinates::ChunkRelativeBlockCoordinates, math::vector2::Vector2};
 use pumpkin_world::level::Level;
-use pumpkin_world::{
-    block::registry::{
-        get_block_and_state_by_state_id, get_block_by_state_id, get_state_by_state_id,
-    },
-    coordinates::ChunkRelativeBlockCoordinates,
-};
 use rand::{Rng, thread_rng};
 use scoreboard::Scoreboard;
 use thiserror::Error;
@@ -1109,7 +1106,7 @@ impl World {
     pub async fn get_block(
         &self,
         position: &BlockPos,
-    ) -> Result<&pumpkin_world::block::registry::Block, GetBlockError> {
+    ) -> Result<&pumpkin_data::registry::Block, GetBlockError> {
         let id = self.get_block_state_id(position).await?;
         get_block_by_state_id(id).ok_or(GetBlockError::InvalidBlockId)
     }
@@ -1118,7 +1115,7 @@ impl World {
     pub async fn get_block_state(
         &self,
         position: &BlockPos,
-    ) -> Result<&pumpkin_world::block::registry::State, GetBlockError> {
+    ) -> Result<&pumpkin_data::registry::State, GetBlockError> {
         let id = self.get_block_state_id(position).await?;
         get_state_by_state_id(id).ok_or(GetBlockError::InvalidBlockId)
     }
@@ -1129,8 +1126,8 @@ impl World {
         position: &BlockPos,
     ) -> Result<
         (
-            &pumpkin_world::block::registry::Block,
-            &pumpkin_world::block::registry::State,
+            &pumpkin_data::registry::Block,
+            &pumpkin_data::registry::State,
         ),
         GetBlockError,
     > {

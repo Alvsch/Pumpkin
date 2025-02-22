@@ -12,12 +12,12 @@ use pumpkin_inventory::{InventoryError, OptionallyCombinedContainer, container_c
 use pumpkin_protocol::client::play::{
     CCloseContainer, COpenScreen, CSetContainerContent, CSetContainerProperty, CSetContainerSlot,
 };
+use pumpkin_protocol::codec::item::ItemStack;
 use pumpkin_protocol::codec::slot::Slot;
 use pumpkin_protocol::codec::var_int::VarInt;
 use pumpkin_protocol::server::play::SClickContainer;
 use pumpkin_util::GameMode;
 use pumpkin_util::text::TextComponent;
-use pumpkin_world::item::ItemStack;
 use std::sync::Arc;
 
 impl Player {

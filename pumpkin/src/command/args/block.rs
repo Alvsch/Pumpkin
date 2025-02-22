@@ -1,6 +1,6 @@
 use async_trait::async_trait;
+use pumpkin_data::registry::{self, Block};
 use pumpkin_protocol::client::play::{ArgumentType, CommandSuggestion, SuggestionProviders};
-use pumpkin_world::block::registry::{self, Block};
 
 use crate::{command::dispatcher::CommandError, server::Server};
 

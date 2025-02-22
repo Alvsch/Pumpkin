@@ -1,12 +1,14 @@
 use noise::Perlin;
+use pumpkin_data::block_state::BlockState;
 use pumpkin_data::chunk::Biome;
+use pumpkin_protocol::codec::chunk::{ChunkData, Subchunks};
 use pumpkin_util::math::vector2::Vector2;
 use pumpkin_util::math::vector3::Vector3;
 
-use crate::block::state::BlockState;
-use crate::chunk::{ChunkData, Subchunks};
-use crate::coordinates::{BlockCoordinates, ChunkRelativeBlockCoordinates, XZBlockCoordinates};
 use crate::generation::Seed;
+use pumpkin_util::coordinates::{
+    BlockCoordinates, ChunkRelativeBlockCoordinates, XZBlockCoordinates,
+};
 
 pub trait GeneratorInit {
     fn new(seed: Seed) -> Self;

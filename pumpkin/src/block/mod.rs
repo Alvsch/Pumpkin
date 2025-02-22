@@ -18,10 +18,10 @@ use properties::{
 };
 use pumpkin_data::entity::EntityType;
 use pumpkin_data::item::Item;
+use pumpkin_data::registry::{Block, State};
+use pumpkin_protocol::codec::item::ItemStack;
 use pumpkin_util::math::position::BlockPos;
 use pumpkin_util::math::vector3::Vector3;
-use pumpkin_world::block::registry::{Block, State};
-use pumpkin_world::item::ItemStack;
 use rand::Rng;
 
 use crate::block::blocks::jukebox::JukeboxBlock;

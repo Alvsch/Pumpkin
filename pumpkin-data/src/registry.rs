@@ -6,7 +6,7 @@ use serde::Deserialize;
 use crate::loot::LootTable;
 
 pub static BLOCKS: LazyLock<TopLevel> = LazyLock::new(|| {
-    serde_json::from_str(include_str!("../../../assets/blocks.json"))
+    serde_json::from_str(include_str!("../../assets/blocks.json"))
         .expect("Could not parse blocks.json registry.")
 });
 

@@ -1,11 +1,13 @@
 use std::ops::Deref;
 
-use crate::{WORLD_LOWEST_Y, WORLD_MAX_Y};
 use derive_more::derive::{AsMut, AsRef, Display, Into};
 use num_traits::{PrimInt, Signed, Unsigned};
-use pumpkin_util::math::vector2::Vector2;
-use pumpkin_util::math::vector3::Vector3;
 use serde::{Deserialize, Serialize};
+
+use crate::{
+    WORLD_LOWEST_Y, WORLD_MAX_Y,
+    math::{vector2::Vector2, vector3::Vector3},
+};
 
 #[derive(
     Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, AsRef, AsMut, Into, Display,

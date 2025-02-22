@@ -1,8 +1,8 @@
 use std::ops::Add;
 
+use pumpkin_data::block_state::BlockState;
 use pumpkin_macros::block_state;
-
-use crate::{block::BlockState, coordinates::ChunkRelativeBlockCoordinates};
+use pumpkin_util::coordinates::ChunkRelativeBlockCoordinates;
 
 pub fn generate_tree(
     chunk_relative_coordinates: ChunkRelativeBlockCoordinates,

@@ -2,7 +2,11 @@ use bytes::*;
 use flate2::bufread::{GzDecoder, GzEncoder, ZlibDecoder, ZlibEncoder};
 use indexmap::IndexMap;
 use pumpkin_config::ADVANCED_CONFIG;
+use pumpkin_data::registry::STATE_ID_TO_REGISTRY_ID;
 use pumpkin_nbt::serializer::to_bytes;
+use pumpkin_protocol::codec::chunk::{
+    ChunkNbt, ChunkSection, ChunkSectionBlockStates, PaletteEntry,
+};
 use pumpkin_util::math::ceil_log2;
 use std::time::{SystemTime, UNIX_EPOCH};
 use std::{
@@ -11,12 +15,10 @@ use std::{
     io::{Read, Seek, SeekFrom, Write},
 };
 
-use crate::block::registry::STATE_ID_TO_REGISTRY_ID;
 use crate::{chunk::ChunkWritingError, level::LevelFolder};
 
 use super::{
-    ChunkData, ChunkNbt, ChunkReader, ChunkReadingError, ChunkSection, ChunkSectionBlockStates,
-    ChunkSerializingError, ChunkWriter, CompressionError, PaletteEntry,
+    ChunkData, ChunkReader, ChunkReadingError, ChunkSerializingError, ChunkWriter, CompressionError,
 };
 
 // 1.21.4

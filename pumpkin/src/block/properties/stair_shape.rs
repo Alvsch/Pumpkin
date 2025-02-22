@@ -3,10 +3,11 @@ use crate::{
     world::World,
 };
 use async_trait::async_trait;
+use pumpkin_data::registry::Block;
 use pumpkin_macros::block_property;
 use pumpkin_protocol::server::play::SUseItemOn;
 use pumpkin_util::math::{position::BlockPos, vector3::Vector3};
-use pumpkin_world::block::{BlockDirection, registry::Block};
+use pumpkin_world::block::BlockDirection;
 
 use super::{BlockProperties, BlockProperty, Direction};
 

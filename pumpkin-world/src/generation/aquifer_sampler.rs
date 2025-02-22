@@ -1,10 +1,9 @@
 use enum_dispatch::enum_dispatch;
+use pumpkin_data::block_state::BlockState;
 use pumpkin_util::{
     math::{floor_div, vector2::Vector2, vector3::Vector3},
     random::RandomDeriver,
 };
-
-use crate::block::BlockState;
 
 use super::{
     chunk_noise::{ChunkNoiseHeightEstimator, LAVA_BLOCK, WATER_BLOCK},
@@ -648,10 +647,10 @@ pub trait AquiferSamplerImpl {
 mod test {
     use std::{mem, sync::LazyLock};
 
+    use pumpkin_data::block_state::BlockState;
     use pumpkin_util::math::vector2::Vector2;
 
     use crate::{
-        block::BlockState,
         generation::{
             GlobalRandomConfig,
             chunk_noise::{

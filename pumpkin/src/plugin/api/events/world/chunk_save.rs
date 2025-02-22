@@ -1,6 +1,6 @@
 use crate::world::World;
 use pumpkin_macros::{Event, cancellable};
-use pumpkin_world::chunk::ChunkData;
+use pumpkin_protocol::codec::chunk::ChunkData;
 use std::sync::Arc;
 use tokio::sync::RwLock;
 

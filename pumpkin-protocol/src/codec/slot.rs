@@ -1,11 +1,12 @@
 use crate::VarInt;
 use pumpkin_data::item::Item;
-use pumpkin_world::item::ItemStack;
 use serde::ser::SerializeSeq;
 use serde::{
     Deserialize, Serialize, Serializer,
     de::{self, SeqAccess},
 };
+
+use super::item::ItemStack;
 
 #[derive(Debug, Clone)]
 pub struct Slot {

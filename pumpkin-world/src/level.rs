@@ -3,6 +3,7 @@ use std::{fs, path::PathBuf, sync::Arc};
 use dashmap::{DashMap, Entry};
 use num_traits::Zero;
 use pumpkin_config::{ADVANCED_CONFIG, chunk::ChunkFormat};
+use pumpkin_protocol::codec::chunk::{ChunkData, ChunkParsingError};
 use pumpkin_util::math::vector2::Vector2;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use tokio::{
@@ -12,8 +13,8 @@ use tokio::{
 
 use crate::{
     chunk::{
-        ChunkData, ChunkParsingError, ChunkReader, ChunkReadingError, ChunkWriter,
-        anvil::AnvilChunkFormat, linear::LinearChunkFormat,
+        ChunkReader, ChunkReadingError, ChunkWriter, anvil::AnvilChunkFormat,
+        linear::LinearChunkFormat,
     },
     generation::{Seed, WorldGenerator, get_world_gen},
     lock::{LevelLocker, anvil::AnvilLevelLocker},

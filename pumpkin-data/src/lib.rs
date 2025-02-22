@@ -1,3 +1,6 @@
+pub mod block_state;
+pub mod loot;
+pub mod registry;
 pub mod tag;
 
 pub mod item {

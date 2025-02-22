@@ -1,6 +1,7 @@
+use pumpkin_data::block_state::BlockState;
 use pumpkin_util::random::RandomDeriver;
 
-use crate::{block::BlockState, generation::noise_router::chunk_noise_router::ChunkNoiseRouter};
+use crate::generation::noise_router::chunk_noise_router::ChunkNoiseRouter;
 
 use super::{
     noise::clamped_map,

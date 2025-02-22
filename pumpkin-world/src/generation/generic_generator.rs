@@ -1,10 +1,9 @@
 use noise::{NoiseFn, Perlin};
-use pumpkin_util::math::vector2::Vector2;
-
-use crate::{
+use pumpkin_protocol::codec::chunk::{ChunkData, Subchunks};
+use pumpkin_util::{
     WORLD_LOWEST_Y,
-    chunk::{ChunkData, Subchunks},
     coordinates::{ChunkRelativeBlockCoordinates, ChunkRelativeXZBlockCoordinates},
+    math::vector2::Vector2,
 };
 
 use super::{

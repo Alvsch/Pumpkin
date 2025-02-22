@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use pumpkin_world::{WORLD_LOWEST_Y, WORLD_MAX_Y};
+use pumpkin_util::{WORLD_LOWEST_Y, WORLD_MAX_Y};
 
 pub enum MaybeRelativeCoordinate<const IS_Y: bool> {
     Absolute(f64),

@@ -1,9 +1,10 @@
 use std::{collections::HashMap, hash::Hash};
 
+use pumpkin_data::block_state::BlockState;
 use pumpkin_macros::block_state;
 use pumpkin_util::math::{floor_div, floor_mod, vector2::Vector2};
 
-use crate::{block::BlockState, generation::section_coords};
+use crate::generation::section_coords;
 
 use super::{
     GlobalRandomConfig,

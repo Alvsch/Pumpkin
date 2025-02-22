@@ -1,6 +1,5 @@
 use crate::InventoryError;
-use pumpkin_protocol::server::play::SlotActionType;
-use pumpkin_world::item::ItemStack;
+use pumpkin_protocol::{codec::item::ItemStack, server::play::SlotActionType};
 
 pub struct Click {
     pub slot: Slot,

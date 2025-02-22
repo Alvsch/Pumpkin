@@ -2,6 +2,7 @@ use pumpkin_data::item::Item;
 use pumpkin_data::tag::{RegistryKey, get_tag_values};
 
 mod categories;
+
 #[derive(serde::Deserialize, Debug, Clone, PartialEq, Eq)]
 #[serde(rename_all = "lowercase")]
 /// Item Rarity

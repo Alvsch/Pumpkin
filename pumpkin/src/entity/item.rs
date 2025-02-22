@@ -4,11 +4,11 @@ use std::sync::{
 };
 
 use async_trait::async_trait;
+use pumpkin_protocol::codec::item::ItemStack;
 use pumpkin_protocol::{
     client::play::{CTakeItemEntity, MetaDataType, Metadata},
     codec::slot::Slot,
 };
-use pumpkin_world::item::ItemStack;
 
 use super::{Entity, EntityBase, living::LivingEntity, player::Player};
 

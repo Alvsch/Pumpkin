@@ -2,7 +2,7 @@ use crate::container_click::MouseClick;
 use crate::crafting::check_if_matches_crafting;
 use crate::{Container, InventoryError, WindowType, handle_item_change};
 use pumpkin_data::item::Item;
-use pumpkin_world::item::ItemStack;
+use pumpkin_protocol::codec::item::ItemStack;
 use std::iter::Chain;
 use std::slice::IterMut;
 

@@ -1,14 +1,10 @@
-use pumpkin_data::chunk::Biome;
-use pumpkin_util::math::vector2::Vector2;
+use pumpkin_data::{block_state::BlockState, chunk::Biome};
+use pumpkin_util::{coordinates::XZBlockCoordinates, math::vector2::Vector2};
 
-use crate::{
-    block::state::BlockState,
-    coordinates::XZBlockCoordinates,
-    generation::{
-        Seed,
-        generator::{BiomeGenerator, GeneratorInit, TerrainGenerator},
-        generic_generator::GenericGenerator,
-    },
+use crate::generation::{
+    Seed,
+    generator::{BiomeGenerator, GeneratorInit, TerrainGenerator},
+    generic_generator::GenericGenerator,
 };
 
 #[expect(dead_code)]
