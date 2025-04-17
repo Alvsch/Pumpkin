@@ -5,7 +5,8 @@ use pumpkin_macros::packet;
 use serde::Serialize;
 
 use crate::{
-    ser::{NetworkReadExt, ReadingError}, ServerPacket
+    ServerPacket,
+    ser::{NetworkReadExt, ReadingError},
 };
 
 #[packet(LOGIN_KEY)]

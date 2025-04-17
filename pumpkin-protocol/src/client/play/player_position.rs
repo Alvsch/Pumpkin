@@ -1,12 +1,12 @@
-use std::io::Write;
+use std::io::{Read, Write};
 
 use pumpkin_data::packet::clientbound::PLAY_PLAYER_POSITION;
 use pumpkin_macros::packet;
 use pumpkin_util::math::vector3::Vector3;
 
 use crate::{
-    ClientPacket, PositionFlag, VarInt,
-    ser::{NetworkWriteExt, WritingError},
+    ClientPacket, PositionFlag, ServerPacket, VarInt,
+    ser::{NetworkReadExt, NetworkWriteExt, ReadingError, WritingError},
 };
 
 #[packet(PLAY_PLAYER_POSITION)]
@@ -36,6 +36,19 @@ impl<'a> CPlayerPosition<'a> {
             pitch,
             releatives,
         }
+    }
+}
+
+impl ServerPacket for CPlayerPosition<'_> {
+    fn read(mut read: impl Read) -> Result<Self, ReadingError> {
+        Ok(Self {
+            teleport_id: read.get_var_int()?,
+            position: Vector3::new(read.get_f64_be()?, read.get_f64_be()?, read.get_f64_be()?),
+            delta: Vector3::new(read.get_f64_be()?, read.get_f64_be()?, read.get_f64_be()?),
+            yaw: read.get_f32_be()?,
+            pitch: read.get_f32_be()?,
+            releatives: &[], // TODO
+        })
     }
 }
 
