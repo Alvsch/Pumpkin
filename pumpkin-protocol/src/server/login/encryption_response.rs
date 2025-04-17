@@ -2,13 +2,14 @@ use std::io::Read;
 
 use pumpkin_data::packet::serverbound::LOGIN_KEY;
 use pumpkin_macros::packet;
+use serde::Serialize;
 
 use crate::{
-    ServerPacket,
-    ser::{NetworkReadExt, ReadingError},
+    ser::{NetworkReadExt, ReadingError}, ServerPacket
 };
 
 #[packet(LOGIN_KEY)]
+#[derive(Serialize)]
 pub struct SEncryptionResponse {
     pub shared_secret: Box<[u8]>,
     pub verify_token: Box<[u8]>,
