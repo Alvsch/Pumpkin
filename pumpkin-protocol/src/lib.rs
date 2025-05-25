@@ -426,7 +426,7 @@ pub enum NumberFormat {
 }
 
 /// For the first 8 values set means relative value while unset means absolute
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum PositionFlag {
     X,
     Y,

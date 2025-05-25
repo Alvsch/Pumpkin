@@ -1,7 +1,7 @@
 use std::io::Read;
 
-use crate::ser::{NetworkReadExt, NetworkWriteExt};
 use crate::ClientPacket;
+use crate::ser::{NetworkReadExt, NetworkWriteExt};
 use crate::{ConnectionState, ServerPacket, VarInt, ser::ReadingError};
 use pumpkin_data::packet::serverbound::HANDSHAKE_INTENTION;
 use pumpkin_macros::packet;
@@ -31,7 +31,10 @@ impl ServerPacket for SHandShake {
 }
 
 impl ClientPacket for SHandShake {
-    fn write_packet_data(&self, mut write: impl std::io::Write) -> Result<(), crate::ser::WritingError> {
+    fn write_packet_data(
+        &self,
+        mut write: impl std::io::Write,
+    ) -> Result<(), crate::ser::WritingError> {
         write.write_var_int(&self.protocol_version)?;
         write.write_string_bounded(&self.server_address, 255)?;
         write.write_u16_be(self.server_port)?;
