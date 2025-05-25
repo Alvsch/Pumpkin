@@ -1,6 +1,6 @@
 use std::io::Read;
 
-use crate::ser::NetworkReadExt;
+use crate::{ser::{NetworkReadExt, NetworkWriteExt}, ClientPacket};
 use pumpkin_data::packet::serverbound::LOGIN_HELLO;
 use pumpkin_macros::packet;
 
@@ -20,5 +20,13 @@ impl ServerPacket for SLoginStart {
             name: read.get_string_bounded(16)?,
             uuid: read.get_uuid()?,
         })
+    }
+}
+
+impl ClientPacket for SLoginStart {
+    fn write_packet_data(&self, mut write: impl std::io::Write) -> Result<(), crate::ser::WritingError> {
+        write.write_string_bounded(&self.name, 16)?;
+        write.write_uuid(&self.uuid)?;
+        Ok(())
     }
 }

@@ -52,6 +52,8 @@ pub enum ConnectionState {
     Config,
     Play,
 }
+
+#[derive(Debug)]
 pub struct InvalidConnectionState;
 
 impl TryFrom<VarInt> for ConnectionState {
@@ -63,6 +65,19 @@ impl TryFrom<VarInt> for ConnectionState {
             1 => Ok(Self::Status),
             2 => Ok(Self::Login),
             3 => Ok(Self::Transfer),
+            _ => Err(InvalidConnectionState),
+        }
+    }
+}
+
+impl TryFrom<ConnectionState> for VarInt {
+    type Error = InvalidConnectionState;
+
+    fn try_from(value: ConnectionState) -> Result<Self, Self::Error> {
+        match value {
+            ConnectionState::Status => Ok(VarInt(1)),
+            ConnectionState::Login => Ok(VarInt(2)),
+            ConnectionState::Transfer => Ok(VarInt(3)),
             _ => Err(InvalidConnectionState),
         }
     }
