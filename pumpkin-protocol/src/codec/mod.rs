@@ -1,6 +1,7 @@
 pub mod ascii_string;
 pub mod bedrock_block_pos;
 pub mod bit_set;
+#[cfg(feature = "full")]
 pub mod item_stack_seralizer;
 pub mod little_endian;
 pub mod socket_address;

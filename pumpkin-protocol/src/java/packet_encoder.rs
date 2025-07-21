@@ -269,7 +269,7 @@ impl<W: AsyncWrite + Unpin> TCPNetworkEncoder<W> {
 #[error("Invalid compression Level")]
 pub struct CompressionLevelError;
 
-#[cfg(test)]
+#[cfg(all(test, any(feature = "clientbound", feature = "serverbound")))]
 mod tests {
     use std::io::Read;
 

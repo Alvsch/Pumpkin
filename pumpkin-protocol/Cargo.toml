@@ -4,16 +4,18 @@ version.workspace = true
 edition.workspace = true
 
 [features]
-default = ["query"]
-serverbound = []
-clientbound = []
+default = ["query", "bedrock", "clientbound", "serverbound"]
+bedrock = ["full"]
+serverbound = ["full", "dep:pumpkin-macros"]
+clientbound = ["full", "dep:pumpkin-macros"]
+full = ["dep:pumpkin-world", "dep:pumpkin-data"]
 query = []
 
 [dependencies]
 pumpkin-nbt = { path = "../pumpkin-nbt" }
-pumpkin-data = { path = "../pumpkin-data" }
-pumpkin-macros = { path = "../pumpkin-macros" }
-pumpkin-world = { path = "../pumpkin-world" }
+pumpkin-data = { path = "../pumpkin-data", optional = true }
+pumpkin-macros = { path = "../pumpkin-macros", optional = true }
+pumpkin-world = { path = "../pumpkin-world", optional = true }
 pumpkin-util = { path = "../pumpkin-util" }
 
 uuid.workspace = true
