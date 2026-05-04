@@ -1,6 +1,4 @@
-use crate::chunk::io::Dirtiable;
-use crate::chunk::palette::BlockPalette;
-use crate::level::Level;
+use crate::{io::Dirtiable, level::Level, palette::BlockPalette};
 use crossbeam::queue::SegQueue;
 use pumpkin_config::lighting::LightingEngineConfig;
 use pumpkin_data::BlockDirection;

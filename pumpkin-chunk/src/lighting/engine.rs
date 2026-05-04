@@ -1,7 +1,5 @@
 use crate::chunk_system::Chunk;
 use crate::chunk_system::generation_cache::Cache;
-use crate::generation::height_limit::HeightLimitView;
-use crate::generation::proto_chunk::GenerationCache;
 use crate::lighting::storage::{get_block_light, get_sky_light, set_block_light, set_sky_light};
 use pumpkin_config::lighting::LightingEngineConfig;
 use pumpkin_data::BlockDirection;
@@ -9,7 +7,6 @@ use pumpkin_util::HeightMap;
 use pumpkin_util::math::position::BlockPos;
 use pumpkin_util::math::vector3::Vector3;
 use std::collections::{HashMap, HashSet, VecDeque};
-//use std::time::Instant;
 
 type FastHashSet<K> = HashSet<K>;
 type FastHashMap<K, V> = HashMap<K, V>;
@@ -500,7 +497,7 @@ impl LightEngine {
 
         let should_skip = {
             let center_chunk = cache.get_center_chunk();
-            center_chunk.stage >= crate::chunk_system::chunk_state::StagedChunkEnum::Lighting
+            center_chunk.stage >= StagedChunkEnum::Lighting
         };
         if should_skip {
             return;

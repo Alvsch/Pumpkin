@@ -3,6 +3,7 @@ use crate::format::linear::LinearV2File;
 use crate::format::pump::PumpFile;
 use crate::io::file_manager::ChunkFileManager;
 use crate::io::{Dirtiable, FileIO, LoadedData};
+use crate::lighting::runtime::DynamicLightEngine;
 use crate::palette::has_random_ticking_fluid;
 use crate::tick::{OrderedTick, ScheduledTick, TickPriority};
 use crate::{ChunkData, ChunkEntityData, ChunkReadingError};

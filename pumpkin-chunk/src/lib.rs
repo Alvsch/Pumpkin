@@ -19,6 +19,7 @@ use tokio::sync::Mutex;
 mod format;
 mod io;
 mod level;
+mod lighting;
 mod palette;
 
 // NOTE: move?
