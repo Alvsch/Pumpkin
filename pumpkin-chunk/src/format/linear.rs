@@ -12,9 +12,9 @@ use tokio::io::{AsyncWriteExt, BufWriter};
 use tracing::{error, warn};
 use xxhash_rust::xxh64::xxh64;
 
-use crate::chunk::format::anvil::{AnvilChunkFile, SingleChunkDataSerializer};
-use crate::chunk::io::{ChunkSerializer, LoadedData};
-use crate::chunk::{ChunkReadingError, ChunkWritingError};
+use crate::format::anvil::{AnvilChunkFile, SingleChunkDataSerializer};
+use crate::io::{ChunkSerializer, LoadedData};
+use crate::{ChunkReadingError, ChunkWritingError};
 
 use super::anvil::CHUNK_COUNT;
 

@@ -6,7 +6,7 @@ use std::sync::{
 use pumpkin_util::math::position::BlockPos;
 use rustc_hash::FxHashSet;
 
-use crate::chunk::tick::{MAX_TICK_DELAY, OrderedTick, ScheduledTick};
+use crate::tick::{MAX_TICK_DELAY, OrderedTick, ScheduledTick};
 
 pub struct ChunkTickScheduler<T> {
     tick_queue: Mutex<[Vec<OrderedTick<T>>; MAX_TICK_DELAY]>,

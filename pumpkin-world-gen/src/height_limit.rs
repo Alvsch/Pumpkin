@@ -1,6 +1,6 @@
-use crate::proto_chunk::ProtoChunk;
+use pumpkin_world_core::section_coords;
 
-use super::section_coords;
+use crate::proto_chunk::ProtoChunk;
 
 pub trait HeightLimitView {
     fn height(&self) -> u16;

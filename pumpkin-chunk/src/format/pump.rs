@@ -8,9 +8,9 @@ use ruzstd::encoding::{CompressionLevel, compress_to_vec};
 use serde::{Deserialize, Serialize};
 use tracing::warn;
 
-use crate::chunk::format::anvil::{CHUNK_COUNT, SingleChunkDataSerializer};
-use crate::chunk::io::{ChunkSerializer, LoadedData};
-use crate::chunk::{ChunkParsingError, ChunkReadingError, ChunkWritingError};
+use crate::format::anvil::{CHUNK_COUNT, SingleChunkDataSerializer};
+use crate::io::{ChunkSerializer, LoadedData};
+use crate::{ChunkParsingError, ChunkReadingError, ChunkWritingError};
 
 pub struct PumpFile<D> {
     pub data: PumpData,

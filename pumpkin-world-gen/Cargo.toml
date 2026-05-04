@@ -10,6 +10,7 @@ pumpkin-data.workspace = true
 pumpkin-util.workspace = true
 pumpkin-nbt.workspace = true
 pumpkin-world-core.workspace = true
+pumpkin-chunk.workspace = true
 
 rustc-hash.workspace = true
 itertools.workspace = true

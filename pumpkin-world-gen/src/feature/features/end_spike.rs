@@ -6,10 +6,9 @@ use pumpkin_util::{
     math::position::BlockPos,
     random::{RandomGenerator, RandomImpl},
 };
-use pumpkin_world_core::BlockRegistryExt;
+use pumpkin_world_core::{BlockRegistryExt, section_coords};
 
 use crate::proto_chunk::GenerationCache;
-use crate::section_coords;
 
 pub struct EndSpikeFeature {
     pub crystal_invulnerable: bool,

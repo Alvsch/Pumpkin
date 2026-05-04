@@ -1,8 +1,9 @@
 use pumpkin_data::noise_router::WrapperType;
 use pumpkin_util::math::vector3::Vector3;
+use pumpkin_world_core::biome_coords;
 use rustc_hash::FxHashMap;
 
-use crate::{biome_coords, positions::chunk_pos};
+use crate::positions::chunk_pos;
 
 use super::{
     chunk_density_function::{

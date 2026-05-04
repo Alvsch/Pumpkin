@@ -4,6 +4,7 @@ use pumpkin_util::{
     math::{clamped_map, floor_div, vector3::Vector3},
     random::{RandomImpl, xoroshiro128::XoroshiroSplitter},
 };
+use pumpkin_world_core::section_coords;
 
 use crate::{
     noise::{
@@ -16,7 +17,6 @@ use crate::{
     },
     positions::{MIN_HEIGHT_CELL, block_pos, chunk_pos},
     proto_chunk::StandardChunkFluidLevelSampler,
-    section_coords,
 };
 
 #[derive(Clone)]
@@ -675,10 +675,10 @@ mod random_positions_and_hypot {
         noise_router::OVERWORLD_BASE_NOISE_ROUTER,
     };
     use pumpkin_util::math::vector3::Vector3;
-    use pumpkin_world_core::RawBlockState;
+    use pumpkin_world_core::{RawBlockState, biome_coords};
 
     use crate::{
-        GlobalRandomConfig, biome_coords,
+        GlobalRandomConfig,
         noise::{
             BlockStateSampler, ChunkNoiseGenerator, LAVA_BLOCK, WATER_BLOCK,
             router::{

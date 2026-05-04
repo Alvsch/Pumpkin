@@ -37,8 +37,7 @@ pub mod block_pos {
 
 pub mod chunk_pos {
     use pumpkin_util::math::vector2::Vector2;
-
-    use crate::section_coords::get_offset_pos;
+    use pumpkin_world_core::section_coords::get_offset_pos;
 
     // A chunk outside of normal bounds
     pub const MARKER: u64 = packed(1875066, 1875066);

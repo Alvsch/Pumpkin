@@ -8,6 +8,7 @@ use pumpkin_util::{
     math::{floor_div, floor_mod, vector3::Vector3},
     random::xoroshiro128::XoroshiroSplitter,
 };
+use pumpkin_world_core::{biome_coords, section_coords};
 
 use crate::{
     noise::{
@@ -17,11 +18,10 @@ use crate::{
         ore_sampler::OreVeinSampler,
     },
     proto_chunk::StandardChunkFluidLevelSampler,
-    section_coords,
 };
 
 use super::{
-    GlobalRandomConfig, biome_coords,
+    GlobalRandomConfig,
     noise::router::{
         chunk_density_function::{
             ChunkNoiseFunctionBuilderOptions, ChunkNoiseFunctionSampleOptions, SampleAction,

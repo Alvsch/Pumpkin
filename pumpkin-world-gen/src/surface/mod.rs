@@ -11,9 +11,10 @@ use pumpkin_util::{
     random::{RandomImpl, xoroshiro128::XoroshiroSplitter},
 };
 
+use pumpkin_world_core::section_coords;
 use terrain::SurfaceTerrainBuilder;
 
-use crate::{positions::chunk_pos, proto_chunk::ProtoChunk, section_coords};
+use crate::{positions::chunk_pos, proto_chunk::ProtoChunk};
 
 use super::{
     noise::perlin::DoublePerlinNoiseSampler,

@@ -17,7 +17,7 @@ use tokio::{
 };
 use tracing::{debug, trace};
 
-use crate::chunk::{
+use crate::{
     ChunkParsingError, ChunkReadingError, ChunkSerializingError, ChunkWritingError,
     CompressionError,
     io::{ChunkSerializer, Dirtiable, LoadedData},

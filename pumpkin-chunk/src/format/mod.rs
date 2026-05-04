@@ -8,19 +8,18 @@ use std::{
 };
 
 use crate::{
-    chunk::{
-        ChunkEntityData, ChunkReadingError, ChunkSerializingError,
-        format::anvil::{SingleChunkDataSerializer, WORLD_DATA_VERSION},
-        io::{Dirtiable, file_manager::PathFromLevelFolder},
-        level::LevelFolder,
-        tick::{ScheduledTick, scheduler::ChunkTickScheduler},
-    },
-    section_coords,
+    ChunkEntityData, ChunkReadingError, ChunkSerializingError,
+    format::anvil::{SingleChunkDataSerializer, WORLD_DATA_VERSION},
+    io::{Dirtiable, file_manager::PathFromLevelFolder},
+    level::LevelFolder,
+    tick::{ScheduledTick, scheduler::ChunkTickScheduler},
 };
 use bytes::Bytes;
 use futures::future::join_all;
+use pumpkin_block::entities::block_entity_from_nbt;
 use pumpkin_data::{Block, chunk::ChunkStatus, fluid::Fluid};
 use pumpkin_nbt::{compound::NbtCompound, nbt_long_array};
+use pumpkin_world_core::section_coords;
 use rustc_hash::FxHashMap;
 use tokio::sync::Mutex;
 use tracing::debug;

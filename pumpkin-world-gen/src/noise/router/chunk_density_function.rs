@@ -7,8 +7,9 @@ use super::{
 };
 use enum_dispatch::enum_dispatch;
 use pumpkin_util::math::{lerp, lerp3, vector3::Vector3};
+use pumpkin_world_core::biome_coords;
 
-use crate::{biome_coords, positions::chunk_pos};
+use crate::positions::chunk_pos;
 
 thread_local! {
     static F64_BUFFER_POOL: RefCell<Vec<Vec<f64>>> = const {

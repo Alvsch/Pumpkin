@@ -17,6 +17,7 @@ members = [
     "pumpkin-pie",
     "pumpkin-world-gen",
     "pumpkin-world-core",
+    "pumpkin-chunk",
 ]
 
 [workspace.package]
@@ -45,6 +46,7 @@ pumpkin-block = { path = "pumpkin-block" }
 pumpkin-pie = { path = "pumpkin-pie" }
 pumpkin-world-gen = { path = "pumpkin-world-gen" }
 pumpkin-world-core = { path = "pumpkin-world-core" }
+pumpkin-chunk = { path = "pumpkin-chunk" }
 
 pumpkin-codecs = { path = "pumpkin-codecs" }
 pumpkin-config = { path = "pumpkin-config" }

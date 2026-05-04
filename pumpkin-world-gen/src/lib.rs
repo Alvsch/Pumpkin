@@ -10,6 +10,7 @@ mod blender;
 mod block_predicate;
 mod block_state_provider;
 mod carver;
+mod chunk_system;
 mod feature;
 mod generator;
 mod height_limit;

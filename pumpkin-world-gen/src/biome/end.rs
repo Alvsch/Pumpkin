@@ -1,9 +1,7 @@
 use pumpkin_data::chunk::Biome;
+use pumpkin_world_core::{biome_coords, section_coords};
 
-use crate::{
-    biome::BiomeSupplier, biome_coords, noise::router::multi_noise_sampler::MultiNoiseSampler,
-    section_coords,
-};
+use crate::{biome::BiomeSupplier, noise::router::multi_noise_sampler::MultiNoiseSampler};
 
 pub struct TheEndBiomeSupplier;
 

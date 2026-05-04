@@ -1,7 +1,6 @@
-use crate::chunk::format::LightContainer;
-use crate::chunk::tick::scheduler::ChunkTickScheduler;
-use crate::{BlockEntity, BlockStateId};
-use palette::{BiomePalette, BlockPalette, has_random_ticking_fluid};
+use crate::format::LightContainer;
+use crate::palette::{BiomePalette, BlockPalette, has_random_ticking_fluid};
+use crate::tick::scheduler::ChunkTickScheduler;
 use pumpkin_data::block_properties::{blocks_movement, has_random_ticks, is_air};
 use pumpkin_data::chunk::ChunkStatus;
 use pumpkin_data::fluid::Fluid;
@@ -9,6 +8,7 @@ use pumpkin_data::tag::Block::MINECRAFT_LEAVES;
 use pumpkin_data::{Block, BlockState};
 use pumpkin_nbt::nbt_long_array;
 use pumpkin_util::math::position::BlockPos;
+use pumpkin_world_core::{BlockEntity, BlockStateId};
 use rustc_hash::FxHashMap;
 use serde::{Deserialize, Serialize};
 use std::sync::RwLock;
@@ -747,7 +747,7 @@ pub enum ChunkSerializingError {
 
 #[cfg(test)]
 mod tests {
-    use crate::chunk::{ChunkHeightmapType, palette::BlockPalette};
+    use crate::{ChunkHeightmapType, palette::BlockPalette};
 
     use super::ChunkSections;
     use pumpkin_data::{Block, block_properties::has_random_ticks};

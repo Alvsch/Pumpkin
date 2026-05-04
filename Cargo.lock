@@ -2803,6 +2803,53 @@ dependencies = [
 ]
 
 [[package]]
+name = "pumpkin-block"
+version = "0.1.0-dev+26.1"
+dependencies = [
+ "crossbeam",
+ "futures",
+ "pumpkin-data",
+ "pumpkin-nbt",
+ "pumpkin-util",
+ "pumpkin-world-core",
+ "rand 0.10.1",
+ "tokio",
+ "tracing",
+ "uuid",
+]
+
+[[package]]
+name = "pumpkin-chunk"
+version = "0.1.0-dev+26.1"
+dependencies = [
+ "bytes",
+ "crossbeam",
+ "dashmap",
+ "flate2",
+ "futures",
+ "itertools 0.14.0",
+ "lz4-java-wrc",
+ "pumpkin-block",
+ "pumpkin-config",
+ "pumpkin-data",
+ "pumpkin-nbt",
+ "pumpkin-util",
+ "pumpkin-world-core",
+ "rand 0.10.1",
+ "rayon",
+ "rustc-hash",
+ "ruzstd",
+ "serde",
+ "slotmap",
+ "thiserror 2.0.18",
+ "tokio",
+ "tokio-util",
+ "tracing",
+ "uuid",
+ "xxhash-rust",
+]
+
+[[package]]
 name = "pumpkin-codecs"
 version = "0.1.0-dev+26.1"
 dependencies = [
@@ -3036,28 +3083,16 @@ name = "pumpkin-world-core"
 version = "0.1.0-dev+26.1"
 dependencies = [
  "bitflags 2.11.1",
- "bytes",
  "crossbeam",
- "dashmap",
- "flate2",
- "futures",
- "itertools 0.14.0",
- "lz4-java-wrc",
  "pumpkin-config",
  "pumpkin-data",
  "pumpkin-nbt",
  "pumpkin-util",
  "rand 0.10.1",
- "rayon",
- "rustc-hash",
- "ruzstd",
  "serde",
- "thiserror 2.0.18",
  "tokio",
  "tokio-util",
  "tracing",
- "uuid",
- "xxhash-rust",
 ]
 
 [[package]]
@@ -3067,6 +3102,7 @@ dependencies = [
  "dashmap",
  "enum_dispatch",
  "itertools 0.14.0",
+ "pumpkin-chunk",
  "pumpkin-data",
  "pumpkin-nbt",
  "pumpkin-util",

@@ -5,14 +5,12 @@ use pumpkin_util::{
     math::{block_box::BlockBox, position::BlockPos},
     random::RandomImpl,
 };
+use pumpkin_world_core::section_coords;
 use serde::Deserialize;
 
-use crate::{
-    section_coords,
-    structure::structures::{
-        StructureGenerator, StructureGeneratorContext, StructurePiece, StructurePiecesCollector,
-        StructurePosition, nether_fortress::bridge_crossing::BridgeCrossingPiece,
-    },
+use crate::structure::structures::{
+    StructureGenerator, StructureGeneratorContext, StructurePiece, StructurePiecesCollector,
+    StructurePosition, nether_fortress::bridge_crossing::BridgeCrossingPiece,
 };
 
 pub mod bridge;

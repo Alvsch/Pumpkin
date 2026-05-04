@@ -18,11 +18,11 @@ use pumpkin_util::{
     math::{position::BlockPos, vector3::Vector3},
     random::{RandomGenerator, get_decorator_seed, xoroshiro128::Xoroshiro},
 };
-use pumpkin_world_core::{BlockAccessor, RawBlockState};
+use pumpkin_world_core::{BlockAccessor, RawBlockState, biome_coords};
 use rustc_hash::FxHashMap;
 
 use super::{
-    GlobalRandomConfig, biome_coords,
+    GlobalRandomConfig,
     blender::{Blender, BlenderImpl},
     feature::placed_features::PLACED_FEATURES,
     noise::router::{

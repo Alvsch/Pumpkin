@@ -12,11 +12,11 @@ use pumpkin_util::{
     math::{block_box::BlockBox, position::BlockPos},
     random::{RandomGenerator, RandomImpl},
 };
+use pumpkin_world_core::section_coords;
 use serde::Deserialize;
 
 use crate::{
     proto_chunk::ProtoChunk,
-    section_coords,
     structure::{
         piece::StructurePieceType,
         structures::{

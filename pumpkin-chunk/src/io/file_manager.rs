@@ -12,7 +12,7 @@ use tokio::{
 };
 use tracing::{debug, error, trace};
 
-use crate::chunk::{
+use crate::{
     ChunkReadingError, ChunkWritingError,
     io::{BoxFuture, Dirtiable},
     level::LevelFolder,

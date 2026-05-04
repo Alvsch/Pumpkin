@@ -3,7 +3,7 @@ use std::{error, pin::Pin};
 use bytes::Bytes;
 use pumpkin_util::math::vector2::Vector2;
 
-use crate::chunk::level::LevelFolder;
+use crate::level::LevelFolder;
 
 use super::{ChunkReadingError, ChunkWritingError};
 

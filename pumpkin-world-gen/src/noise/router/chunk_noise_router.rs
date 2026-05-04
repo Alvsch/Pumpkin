@@ -1,8 +1,7 @@
 use enum_dispatch::enum_dispatch;
 use pumpkin_data::noise_router::WrapperType;
 use pumpkin_util::math::vector3::Vector3;
-
-use crate::biome_coords;
+use pumpkin_world_core::biome_coords;
 
 use super::{
     chunk_density_function::{

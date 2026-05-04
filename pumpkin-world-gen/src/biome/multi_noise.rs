@@ -34,6 +34,7 @@ impl NoiseValuePoint {
 mod test {
     use pumpkin_data::{chunk::Biome, dimension::Dimension};
     use pumpkin_util::read_data_from_file;
+    use pumpkin_world_core::biome_coords;
 
     use crate::{
         biome::{BiomeSupplier, MultiNoiseBiomeSupplier},
@@ -47,7 +48,7 @@ mod test {
         use crate::noise::router::multi_noise_sampler::{
             MultiNoiseSampler, MultiNoiseSamplerBuilderOptions,
         };
-        use crate::{biome_coords, positions::chunk_pos};
+        use crate::positions::chunk_pos;
         use pumpkin_util::world_seed::Seed;
         type PosToPoint = (i32, i32, i32, i64, i64, i64, i64, i64, i64);
         let expected_data: Vec<PosToPoint> =

@@ -1,13 +1,9 @@
-use crate::block::entities::block_entity_from_nbt;
-use crate::chunk::{ChunkData, ChunkLight, ChunkSections};
-use crate::generation::biome_coords;
 use pumpkin_config::lighting::LightingEngineConfig;
 use pumpkin_data::dimension::Dimension;
 use rustc_hash::FxHashMap;
 use std::sync::Arc;
 use std::sync::atomic::AtomicBool;
 
-use crate::ProtoChunk;
 use crate::level::SyncChunk;
 
 use pumpkin_data::chunk::ChunkStatus;

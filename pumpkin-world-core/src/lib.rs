@@ -16,7 +16,6 @@ use pumpkin_util::{
 
 mod block_entity;
 mod block_state_codec;
-mod chunk;
 mod experience_container;
 mod inventory;
 mod mob_spawner;

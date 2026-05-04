@@ -2,12 +2,12 @@ use pumpkin_data::{
     structures::{Structure, StructureKeys},
     tag::{RegistryKey, get_tag_ids},
 };
+use pumpkin_world_core::biome_coords;
 
 use crate::{
     biome::BiomeSupplier,
     proto_chunk::ProtoChunk,
     {
-        biome_coords,
         noise::router::multi_noise_sampler::MultiNoiseSampler,
         structure::structures::{
             StructureGenerator, StructureGeneratorContext, StructurePosition,

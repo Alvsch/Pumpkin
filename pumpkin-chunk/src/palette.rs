@@ -628,7 +628,7 @@ pub(crate) const BIOME_NETWORK_MAX_BITS: u8 = 7;
 mod test {
     use pumpkin_data::{Block, chunk::Biome};
 
-    use crate::chunk::palette::{BIOME_NETWORK_MAX_BITS, BLOCK_NETWORK_MAX_BITS};
+    use super::{BIOME_NETWORK_MAX_BITS, BLOCK_NETWORK_MAX_BITS};
 
     #[test]
     fn biome_proper_network_bits_per_entry() {

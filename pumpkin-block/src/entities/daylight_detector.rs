@@ -97,12 +97,15 @@ impl DaylightDetectorBlockEntity {
             0 // full daylight
         };
 
-        let sky_light_level = level
-            .light_engine
-            .get_sky_light_level(level, block_pos)
-            .await;
+        // TODO: uncomment
+        // let sky_light_level = level
+        //     .light_engine
+        //     .get_sky_light_level(level, block_pos)
+        //     .await;
 
-        let mut power = sky_light_level - ambient_darkness;
+        // TODO: uncomment
+        // let mut power = sky_light_level - ambient_darkness;
+        let mut power = 0;
 
         if inverted {
             power = 15 - power;

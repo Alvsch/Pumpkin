@@ -1,11 +1,12 @@
 use pumpkin_util::math::{square_f64, vector3::Vector3};
+use pumpkin_world_core::biome_coords;
 use sha2::{Digest, Sha256};
 use std::cell::RefCell;
 
 use enum_dispatch::enum_dispatch;
 use pumpkin_data::chunk::{Biome, BiomeTree, NETHER_BIOME_SOURCE, OVERWORLD_BIOME_SOURCE};
 
-use crate::{biome_coords, noise::router::multi_noise_sampler::MultiNoiseSampler};
+use crate::noise::router::multi_noise_sampler::MultiNoiseSampler;
 
 pub mod end;
 pub mod multi_noise;
@@ -206,13 +207,13 @@ pub fn hash_seed(seed: u64) -> i64 {
 mod test {
     use pumpkin_data::{chunk::Biome, dimension::Dimension};
     use pumpkin_util::{math::vector3::Vector3, read_data_from_file, world_seed::Seed};
+    use pumpkin_world_core::biome_coords;
     use serde::Deserialize;
 
     use crate::{
         biome::{
             MultiNoiseBiomeSupplier, get_biome_blend, hash_seed, scale_mix, score_permutation,
         },
-        biome_coords,
         generator::VanillaGenerator,
         noise::router::multi_noise_sampler::{MultiNoiseSampler, MultiNoiseSamplerBuilderOptions},
         positions::chunk_pos,
