@@ -1,5 +1,7 @@
-use crate::chunk_system::Chunk;
+use crate::chunk_system::{Chunk, StagedChunkEnum};
 use crate::chunk_system::generation_cache::Cache;
+use crate::height_limit::HeightLimitView;
+use crate::proto_chunk::GenerationCache;
 use crate::lighting::storage::{get_block_light, get_sky_light, set_block_light, set_sky_light};
 use pumpkin_config::lighting::LightingEngineConfig;
 use pumpkin_data::BlockDirection;

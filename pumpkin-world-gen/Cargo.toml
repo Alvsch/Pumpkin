@@ -11,6 +11,8 @@ pumpkin-util.workspace = true
 pumpkin-nbt.workspace = true
 pumpkin-world-core.workspace = true
 pumpkin-chunk.workspace = true
+pumpkin-config.workspace = true
+pumpkin-block.workspace = true
 
 rustc-hash.workspace = true
 itertools.workspace = true

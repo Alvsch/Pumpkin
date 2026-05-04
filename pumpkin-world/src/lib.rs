@@ -2,6 +2,8 @@ use pumpkin_data::{
     Block, BlockState, chunk_gen_settings::GenerationSettings, dimension::Dimension,
 };
 use pumpkin_util::math::vector2::Vector2;
+use pumpkin_world_core::biome_coords;
+use pumpkin_world_gen::{GlobalRandomConfig, generator::{GeneratorInit, VanillaGenerator}, noise::{CHUNK_DIM, ChunkNoiseGenerator, aquifer_sampler::FluidLevel, router::{multi_noise_sampler::{MultiNoiseSampler, MultiNoiseSamplerBuilderOptions}, proto_noise_router::ProtoNoiseRouters, surface_height_sampler::{SurfaceHeightEstimateSampler, SurfaceHeightSamplerBuilderOptions}}}, positions::chunk_pos, proto_chunk::{ProtoChunk, StandardChunkFluidLevelSampler, TerrainCache}};
 
 pub mod cylindrical_chunk_iterator;
 pub mod data;
@@ -26,17 +28,6 @@ macro_rules! global_path {
 }
 
 // TODO: is there a way to do in-file benches?
-pub use generation::{
-    GlobalRandomConfig, noise::router::proto_noise_router::ProtoNoiseRouters,
-    proto_chunk::ProtoChunk,
-};
-
-use crate::generation::{
-    biome_coords,
-    noise::{CHUNK_DIM, ChunkNoiseGenerator, aquifer_sampler::FluidLevel},
-    positions::chunk_pos,
-    proto_chunk::TerrainCache,
-};
 
 pub fn bench_create_and_populate_noise(
     _base_router: &ProtoNoiseRouters,
@@ -45,11 +36,6 @@ pub fn bench_create_and_populate_noise(
     _terrain_cache: &TerrainCache,
     _default_block: &'static BlockState,
 ) {
-    use crate::generation::generator::{GeneratorInit, VanillaGenerator};
-    use crate::generation::noise::router::surface_height_sampler::{
-        SurfaceHeightEstimateSampler, SurfaceHeightSamplerBuilderOptions,
-    };
-    use crate::generation::proto_chunk::StandardChunkFluidLevelSampler;
     use pumpkin_util::world_seed::Seed;
 
     let generator = VanillaGenerator::new(Seed(random_config.seed), Dimension::OVERWORLD);
@@ -118,11 +104,6 @@ pub fn bench_create_and_populate_biome(
     _terrain_cache: &TerrainCache,
     _default_block: &'static BlockState,
 ) {
-    use crate::generation::generator::{GeneratorInit, VanillaGenerator};
-    use crate::generation::noise::router::multi_noise_sampler::{
-        MultiNoiseSampler, MultiNoiseSamplerBuilderOptions,
-    };
-    use crate::generation::{biome_coords, positions::chunk_pos};
     use pumpkin_util::world_seed::Seed;
 
     let generator = VanillaGenerator::new(Seed(random_config.seed), Dimension::OVERWORLD);
@@ -154,14 +135,6 @@ pub fn bench_create_and_populate_noise_with_surface(
     _terrain_cache: &TerrainCache,
     _default_block: &'static BlockState,
 ) {
-    use crate::generation::generator::{GeneratorInit, VanillaGenerator};
-    use crate::generation::noise::router::{
-        multi_noise_sampler::{MultiNoiseSampler, MultiNoiseSamplerBuilderOptions},
-        surface_height_sampler::{
-            SurfaceHeightEstimateSampler, SurfaceHeightSamplerBuilderOptions,
-        },
-    };
-    use crate::generation::proto_chunk::StandardChunkFluidLevelSampler;
     use pumpkin_util::world_seed::Seed;
 
     let generator = VanillaGenerator::new(Seed(random_config.seed), Dimension::OVERWORLD);

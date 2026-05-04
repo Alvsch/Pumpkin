@@ -18,8 +18,14 @@ use pumpkin_util::{
     math::{position::BlockPos, vector3::Vector3},
     random::{RandomGenerator, get_decorator_seed, xoroshiro128::Xoroshiro},
 };
-use pumpkin_world_core::{BlockAccessor, RawBlockState, biome_coords};
+use pumpkin_world_core::{
+    BlockAccessor, BlockRegistryExt, RawBlockState, biome_coords, section_coords,
+};
 use rustc_hash::FxHashMap;
+
+use crate::chunk::{CHUNK_AREA, ChunkData, ChunkHeightmapType, ChunkLight};
+use crate::chunk::format::LightContainer;
+use crate::chunk_system::StagedChunkEnum;
 
 use super::{
     GlobalRandomConfig,
@@ -30,7 +36,6 @@ use super::{
         surface_height_sampler::SurfaceHeightEstimateSampler,
     },
     positions::chunk_pos::{start_block_x, start_block_z},
-    section_coords,
     surface::{MaterialRuleContext, estimate_surface_height, terrain::SurfaceTerrainBuilder},
 };
 use crate::biome::{BiomeSupplier, MultiNoiseBiomeSupplier, end::TheEndBiomeSupplier};

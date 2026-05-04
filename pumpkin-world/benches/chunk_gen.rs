@@ -1,10 +1,7 @@
 use criterion::{Criterion, criterion_group, criterion_main};
 use pumpkin_data::dimension::Dimension;
 use pumpkin_util::world_seed::Seed;
-use pumpkin_world::biome::hash_seed;
-use pumpkin_world::chunk_system::{StagedChunkEnum, generate_single_chunk};
-use pumpkin_world::generation::get_world_gen;
-use pumpkin_world::world::BlockRegistryExt;
+use pumpkin_world_core::BlockAccessor;
 use std::hint::black_box;
 use std::sync::Arc;
 
@@ -37,7 +34,7 @@ impl BlockRegistryExt for BlockRegistry {
         &self,
         _block: &pumpkin_data::Block,
         _state: &pumpkin_data::BlockState,
-        _block_accessor: &dyn pumpkin_world::world::BlockAccessor,
+        _block_accessor: &dyn BlockAccessor,
         _block_pos: &pumpkin_util::math::position::BlockPos,
     ) -> bool {
         true

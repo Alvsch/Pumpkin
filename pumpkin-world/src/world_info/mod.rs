@@ -1,8 +1,7 @@
 use std::collections::HashMap;
 use std::path::Path;
 
-use crate::CURRENT_MC_VERSION;
-use pumpkin_data::game_rules::GameRuleRegistry;
+use pumpkin_data::{game_rules::GameRuleRegistry, packet::CURRENT_MC_VERSION};
 use pumpkin_util::{Difficulty, serde_enum_as_integer, world_seed::Seed};
 use serde::{Deserialize, Serialize};
 use thiserror::Error;

@@ -1,13 +1,6 @@
-use pumpkin_data::item::Item;
-use pumpkin_data::item_stack::ItemStack;
-use pumpkin_nbt::{compound::NbtCompound, tag::NbtTag};
-use std::any::Any;
-use std::pin::Pin;
-use std::{
-    hash::{Hash, Hasher},
-    sync::Arc,
-};
-use tokio::sync::{Mutex, OwnedMutexGuard};
+use std::{hash::{Hash, Hasher}, sync::Arc};
+
+use pumpkin_world_core::Inventory;
 
 pub struct ComparableInventory(pub Arc<dyn Inventory>);
 

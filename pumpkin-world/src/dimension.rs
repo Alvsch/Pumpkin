@@ -1,9 +1,8 @@
 use std::{path::PathBuf, sync::Arc};
 
 use pumpkin_config::world::LevelConfig;
-use pumpkin_data::dimension::Dimension;
-
-use crate::{level::Level, world::BlockRegistryExt};
+use pumpkin_data::{dimension::Dimension, fluid::Level};
+use pumpkin_world_core::BlockRegistryExt;
 
 pub fn into_level(
     dimension: Dimension,
@@ -13,18 +12,19 @@ pub fn into_level(
     seed: i64,
     gen_pool: Option<Arc<rayon::ThreadPool>>,
 ) -> Arc<Level> {
-    if dimension == Dimension::OVERWORLD {
-    } else if dimension == Dimension::THE_NETHER {
-        base_directory.push("DIM-1");
-    } else if dimension == Dimension::THE_END {
-        base_directory.push("DIM1");
-    }
-    Level::from_root_folder(
-        level_config,
-        base_directory,
-        block_registry,
-        seed,
-        dimension,
-        gen_pool,
-    )
+    // if dimension == Dimension::OVERWORLD {
+    // } else if dimension == Dimension::THE_NETHER {
+    //     base_directory.push("DIM-1");
+    // } else if dimension == Dimension::THE_END {
+    //     base_directory.push("DIM1");
+    // }
+    // Level::from_root_folder(
+    //     level_config,
+    //     base_directory,
+    //     block_registry,
+    //     seed,
+    //     dimension,
+    //     gen_pool,
+    // )
+    todo!()
 }

@@ -10,14 +10,15 @@ mod blender;
 mod block_predicate;
 mod block_state_provider;
 mod carver;
-mod chunk_system;
+pub mod chunk_system;
 mod feature;
-mod generator;
+pub mod generator;
 mod height_limit;
 mod height_provider;
-mod noise;
-mod positions;
-mod proto_chunk;
+pub mod lighting;
+pub mod noise;
+pub mod positions;
+pub mod proto_chunk;
 mod proto_chunk_test;
 mod rule;
 mod structure;
@@ -25,6 +26,62 @@ mod surface;
 
 pub type BlockId = u16;
 pub type BlockStateId = u16;
+
+pub mod chunk {
+    pub use pumpkin_chunk::{
+        CHUNK_AREA, CHUNK_WIDTH, BIOME_VOLUME, ChunkData, ChunkEntityData, ChunkHeightmapType,
+        ChunkHeightmaps, ChunkLight, ChunkSections, RandomTickSectionCache, SUBCHUNK_VOLUME,
+    };
+
+    pub mod format {
+        pub use pumpkin_chunk::format::LightContainer;
+    }
+
+    pub mod io {
+        pub use pumpkin_chunk::io::{Dirtiable, FileIO, LoadedData};
+    }
+}
+
+pub mod level {
+    pub use pumpkin_chunk::level::{
+        LevelFolder, LevelTickPriority, RandomTickSample, SyncChunk, SyncEntityChunk, TickData,
+    };
+}
+
+pub mod world {
+    pub use pumpkin_world_core::{BlockAccessor, BlockRegistryExt};
+}
+
+pub mod generation {
+    pub mod feature {
+        pub mod configured_features {
+            pub use crate::feature::configured_features::*;
+        }
+
+        pub mod features {
+            pub use crate::feature::features::*;
+        }
+
+        pub mod placed_features {
+            pub use crate::feature::placed_features::*;
+        }
+
+        pub mod size {
+            pub use crate::feature::size::*;
+        }
+    }
+
+    pub use pumpkin_world_core::biome_coords;
+    pub use pumpkin_world_core::section_coords;
+    pub use crate::generator;
+    pub use crate::get_world_gen;
+    pub use crate::noise;
+    pub use crate::positions;
+    pub use crate::proto_chunk;
+    pub use crate::GlobalRandomConfig;
+}
+
+pub use pumpkin_world_core::section_coords;
 
 #[must_use]
 pub fn get_world_gen(seed: Seed, dimension: Dimension) -> Box<VanillaGenerator> {

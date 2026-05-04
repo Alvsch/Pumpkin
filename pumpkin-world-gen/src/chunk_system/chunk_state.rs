@@ -4,9 +4,13 @@ use rustc_hash::FxHashMap;
 use std::sync::Arc;
 use std::sync::atomic::AtomicBool;
 
+use crate::chunk::{ChunkData, ChunkLight, ChunkSections};
+use crate::proto_chunk::ProtoChunk;
 use crate::level::SyncChunk;
 
 use pumpkin_data::chunk::ChunkStatus;
+use pumpkin_block::entities::block_entity_from_nbt;
+use pumpkin_world_core::biome_coords;
 use std::sync::Mutex;
 
 #[repr(u8)]

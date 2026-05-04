@@ -212,9 +212,10 @@ mod test {
 
     use crate::{
         biome::{
-            MultiNoiseBiomeSupplier, get_biome_blend, hash_seed, scale_mix, score_permutation,
+            BiomeSupplier, MultiNoiseBiomeSupplier, get_biome_blend, hash_seed, scale_mix,
+            score_permutation,
         },
-        generator::VanillaGenerator,
+        generator::{GeneratorInit, VanillaGenerator},
         noise::router::multi_noise_sampler::{MultiNoiseSampler, MultiNoiseSamplerBuilderOptions},
         positions::chunk_pos,
         proto_chunk::ProtoChunk,

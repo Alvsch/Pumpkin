@@ -1,5 +1,5 @@
-use crate::inventory::{Clearable, Inventory, InventoryFuture, split_stack};
 use pumpkin_data::item_stack::ItemStack;
+use pumpkin_world_core::{Clearable, Inventory, InventoryFuture, split_stack};
 use std::any::Any;
 use std::sync::Arc;
 use tokio::sync::Mutex;

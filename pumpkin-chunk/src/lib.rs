@@ -16,14 +16,13 @@ use std::sync::{Arc, atomic::AtomicBool};
 use thiserror::Error;
 use tokio::sync::Mutex;
 
-mod format;
-mod io;
-mod level;
-mod lighting;
+pub mod format;
+pub mod io;
+pub mod level;
 mod palette;
 
 // NOTE: move?
-mod tick;
+pub mod tick;
 
 // TODO
 pub const CHUNK_WIDTH: usize = BlockPalette::SIZE;

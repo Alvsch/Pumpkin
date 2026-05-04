@@ -1,5 +1,6 @@
 use crate::chunk_system::chunk_state::Chunk;
 use crate::chunk_system::generation_cache::Cache;
+use crate::height_limit::HeightLimitView;
 use pumpkin_util::math::position::BlockPos;
 
 #[inline(always)]
