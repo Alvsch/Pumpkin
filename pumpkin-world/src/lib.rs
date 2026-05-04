@@ -3,14 +3,11 @@ use pumpkin_data::{
 };
 use pumpkin_util::math::vector2::Vector2;
 
-pub mod biome;
 pub mod block;
-pub mod chunk;
 pub mod chunk_system;
 pub mod cylindrical_chunk_iterator;
 pub mod data;
 pub mod dimension;
-pub mod generation;
 pub mod inventory;
 pub mod level;
 pub mod lighting;
@@ -18,14 +15,6 @@ pub mod poi;
 pub mod tick;
 pub mod world;
 pub mod world_info;
-
-pub type BlockId = u16;
-pub type BlockStateId = u16;
-
-pub const CURRENT_MC_VERSION: &str = "26.1";
-
-pub const CURRENT_BEDROCK_MC_VERSION: &str = "1.26.10";
-pub const CURRENT_BEDROCK_MC_PROTOCOL: u32 = 944;
 
 #[macro_export]
 macro_rules! global_path {

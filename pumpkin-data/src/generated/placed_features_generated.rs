@@ -1,15 +1,14 @@
 /* This file is generated. Do not edit manually. */
 #[allow(clippy::all, unused_imports, dead_code)]
 fn build_placed_features() -> std::collections::HashMap<String, PlacedFeature> {
-    use crate::block::BlockStateCodec;
-    use crate::generation::block_predicate::{
+    use crate::block_predicate::{
         AllOfBlockPredicate, AnyOfBlockPredicate, BlockPredicate, HasSturdyFacePredicate,
         InsideWorldBoundsBlockPredicate, MatchingBlockTagPredicate, MatchingBlocksBlockPredicate,
         MatchingBlocksWrapper, MatchingFluidsBlockPredicate, NotBlockPredicate,
         OffsetBlocksBlockPredicate, ReplaceableBlockPredicate, SolidBlockPredicate,
         WouldSurviveBlockPredicate,
     };
-    use crate::generation::height_provider::{
+    use crate::height_provider::{
         HeightProvider, TrapezoidHeightProvider, UniformHeightProvider,
         VeryBiasedToBottomHeightProvider,
     };
@@ -22,6 +21,7 @@ fn build_placed_features() -> std::collections::HashMap<String, PlacedFeature> {
     };
     use pumpkin_util::math::vector3::Vector3;
     use pumpkin_util::y_offset::{AboveBottom, Absolute, BelowTop, YOffset};
+    use pumpkin_world_core::BlockStateCodec;
     let mut map = std::collections::HashMap::new();
     map.insert(
         "acacia".to_string(),

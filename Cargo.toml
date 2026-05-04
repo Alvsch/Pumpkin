@@ -1,19 +1,23 @@
 [workspace]
 resolver = "3"
+exclude = ["pumpkin-codegen"]
 members = [
     "pumpkin-api-macros",
     "pumpkin-config",
     "pumpkin-util",
     "pumpkin-inventory",
-    "pumpkin-macros/",
-    "pumpkin-protocol/",
+    "pumpkin-macros",
+    "pumpkin-protocol",
     "pumpkin-world",
-    "pumpkin/",
+    "pumpkin",
     "pumpkin-data",
     "pumpkin-plugin-api",
-    "pumpkin-codecs"
-, "pumpkin-core", "pumpkin-bin"]
-exclude = ["pumpkin-codegen"]
+    "pumpkin-codecs",
+    "pumpkin-core",
+    "pumpkin-pie",
+    "pumpkin-world-gen",
+    "pumpkin-world-core",
+]
 
 [workspace.package]
 version = "0.1.0-dev+26.1"
@@ -36,6 +40,12 @@ strip = false
 
 [workspace.dependencies]
 # Internal dependencies
+pumpkin-core = { path = "pumpkin-core" }
+pumpkin-block = { path = "pumpkin-block" }
+pumpkin-pie = { path = "pumpkin-pie" }
+pumpkin-world-gen = { path = "pumpkin-world-gen" }
+pumpkin-world-core = { path = "pumpkin-world-core" }
+
 pumpkin-codecs = { path = "pumpkin-codecs" }
 pumpkin-config = { path = "pumpkin-config" }
 pumpkin-data = { path = "pumpkin-data" }
@@ -109,6 +119,7 @@ num-traits = "0.2"
 phf = "0.13.1"
 rustc-hash = "2.1.2"
 crc-fast = "1.10.0"
+xxhash-rust = { version = "0.8", features = ["xxh64"] }
 
 # Data Structures
 bitflags = "2.11.1"

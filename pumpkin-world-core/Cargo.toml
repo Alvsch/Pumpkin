@@ -1,0 +1,36 @@
+[package]
+name = "pumpkin-world-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+pumpkin-data.workspace = true
+pumpkin-util.workspace = true
+pumpkin-nbt.workspace = true
+pumpkin-config.workspace = true
+
+tokio.workspace = true
+tokio-util.workspace = true
+crossbeam.workspace = true
+bitflags.workspace = true
+tracing.workspace = true
+dashmap.workspace = true
+rustc-hash.workspace = true
+thiserror.workspace = true
+uuid.workspace = true
+bytes.workspace = true
+futures.workspace = true
+flate2.workspace = true
+lz4-java-wrc.workspace = true
+itertools.workspace = true
+ruzstd.workspace = true
+xxhash-rust.workspace = true
+rayon.workspace = true
+
+serde.workspace = true
+rand.workspace = true
+
+[lints]
+# workspace = true

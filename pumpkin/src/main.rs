@@ -37,19 +37,6 @@ use tracing::{debug, info, warn};
 
 // Setup some tokens to allow us to identify which event is for which socket.
 
-pub mod block;
-pub mod command;
-pub mod crash;
-pub mod data;
-pub mod entity;
-pub mod error;
-pub mod item;
-pub mod logging;
-pub mod net;
-pub mod plugin;
-pub mod server;
-pub mod world;
-
 pub static LOGGER_IMPL: LazyLock<Arc<OnceLock<LoggerOption>>> =
     LazyLock::new(|| Arc::new(OnceLock::new()));
 

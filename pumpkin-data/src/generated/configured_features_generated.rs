@@ -1,22 +1,21 @@
 /* This file is generated. Do not edit manually. */
 #[allow(clippy::all, unused_imports, dead_code)]
 fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFeature> {
-    use crate::block::BlockStateCodec;
-    use crate::generation::block_predicate::{
+    use crate::block_predicate::{
         AllOfBlockPredicate, AnyOfBlockPredicate, BlockPredicate, HasSturdyFacePredicate,
         InsideWorldBoundsBlockPredicate, MatchingBlockTagPredicate, MatchingBlocksBlockPredicate,
         MatchingBlocksWrapper, MatchingFluidsBlockPredicate, NotBlockPredicate,
         OffsetBlocksBlockPredicate, ReplaceableBlockPredicate, SolidBlockPredicate,
         WouldSurviveBlockPredicate,
     };
-    use crate::generation::block_state_provider::{
+    use crate::block_state_provider::{
         BlockStateProvider, BlockStateRule, DualNoiseBlockStateProvider, NoiseBlockStateProvider,
         NoiseBlockStateProviderBase, NoiseThresholdBlockStateProvider, PillarBlockStateProvider,
         RandomizedIntBlockStateProvider, RuleBasedBlockStateProvider, SimpleStateProvider,
         WeightedBlockStateProvider,
     };
-    use crate::generation::feature::features::drip_stone::small::SmallDripstoneFeature;
-    use crate::generation::feature::features::{
+    use crate::feature::features::drip_stone::small::SmallDripstoneFeature;
+    use crate::feature::features::{
         bamboo::BambooFeature,
         block_column::{BlockColumnFeature, Layer},
         end_spike::{EndSpikeFeature, Spike},
@@ -58,7 +57,7 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
         vegetation_patch::VegetationPatchFeature,
         waterlogged_vegetation_patch::WaterloggedVegetationPatchFeature,
     };
-    use crate::generation::feature::placed_features::{
+    use crate::feature::placed_features::{
         BiomePlacementModifier, BlockFilterPlacementModifier, CountOnEveryLayerPlacementModifier,
         CountPlacementModifier, EnvironmentScanPlacementModifier, Feature,
         HeightRangePlacementModifier, HeightmapPlacementModifier, NoiseBasedCountPlacementModifier,
@@ -67,14 +66,14 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
         SquarePlacementModifier, SurfaceThresholdFilterPlacementModifier,
         SurfaceWaterDepthFilterPlacementModifier,
     };
-    use crate::generation::feature::size::{
+    use crate::feature::size::{
         FeatureSize, FeatureSizeType, ThreeLayersFeatureSize, TwoLayersFeatureSize,
     };
-    use crate::generation::height_provider::{
+    use crate::height_provider::{
         HeightProvider, TrapezoidHeightProvider, UniformHeightProvider,
         VeryBiasedToBottomHeightProvider,
     };
-    use crate::generation::rule::{
+    use crate::rule::{
         RuleTest, block_match::BlockMatchRuleTest, block_state_match::BlockStateMatchRuleTest,
         random_block_match::RandomBlockMatchRuleTest,
         random_block_state_match::RandomBlockStateMatchRuleTest, tag_match::TagMatchRuleTest,
@@ -90,6 +89,7 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     use pumpkin_util::math::pool::Weighted;
     use pumpkin_util::math::vector3::Vector3;
     use pumpkin_util::y_offset::{AboveBottom, Absolute, BelowTop, YOffset};
+    use pumpkin_world_core::BlockStateCodec;
     let mut map = std::collections::HashMap::new();
     map . insert ("acacia" . to_string () , ConfiguredFeature :: Tree (Box :: new (TreeFeature { trunk_provider : BlockStateProvider :: Simple (SimpleStateProvider { state : { let mut props = std :: collections :: HashMap :: new () ; props . insert ("axis" . to_string () , "y" . to_string ()) ; BlockStateCodec { name : & pumpkin_data :: Block :: ACACIA_LOG , properties : Some (props) , } . get_state () } }) , trunk_placer : TrunkPlacer { base_height : 5u8 , height_rand_a : 2u8 , height_rand_b : 2u8 , r#type : TrunkType :: Forking (ForkingTrunkPlacer) , } , foliage_provider : BlockStateProvider :: Simple (SimpleStateProvider { state : { let mut props = std :: collections :: HashMap :: new () ; props . insert ("distance" . to_string () , "7" . to_string ()) ; props . insert ("persistent" . to_string () , "false" . to_string ()) ; props . insert ("waterlogged" . to_string () , "false" . to_string ()) ; BlockStateCodec { name : & pumpkin_data :: Block :: ACACIA_LEAVES , properties : Some (props) , } . get_state () } }) , foliage_placer : FoliagePlacer { radius : IntProvider :: Constant (2i32) , offset : IntProvider :: Constant (0i32) , r#type : FoliageType :: Acacia (AcaciaFoliagePlacer) } , minimum_size : FeatureSize { min_clipped_height : None , r#type : FeatureSizeType :: TwoLayersFeatureSize (TwoLayersFeatureSize { limit : 1u8 , lower_size : 0u8 , upper_size : 2u8 , }) } , ignore_vines : true , below_trunk_provider : BlockStateProvider :: Rule (RuleBasedBlockStateProvider { fallback : None , rules : vec ! [BlockStateRule { if_true : BlockPredicate :: Not (NotBlockPredicate { predicate : Box :: new (BlockPredicate :: MatchingBlockTag (MatchingBlockTagPredicate { offset : OffsetBlocksBlockPredicate { offset : None } , tag : pumpkin_data :: tag :: Block :: MINECRAFT_CANNOT_REPLACE_BELOW_TREE_TRUNK , })) , }) , then : BlockStateProvider :: Simple (SimpleStateProvider { state : pumpkin_data :: Block :: DIRT . default_state }) }] , }) , decorators : vec ! [] , }))) ;
     map.insert(
@@ -362,7 +362,7 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     map.insert(
         "basalt_pillar".to_string(),
         ConfiguredFeature::BasaltPillar(
-            crate::generation::feature::features::basalt_pillar::BasaltPillarFeature {},
+            crate::feature::features::basalt_pillar::BasaltPillarFeature {},
         ),
     );
     map.insert(
@@ -421,15 +421,11 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     );
     map.insert(
         "blue_ice".to_string(),
-        ConfiguredFeature::BlueIce(
-            crate::generation::feature::features::blue_ice::BlueIceFeature {},
-        ),
+        ConfiguredFeature::BlueIce(crate::feature::features::blue_ice::BlueIceFeature {}),
     );
     map.insert(
         "bonus_chest".to_string(),
-        ConfiguredFeature::BonusChest(
-            crate::generation::feature::features::bonus_chest::BonusChestFeature {},
-        ),
+        ConfiguredFeature::BonusChest(crate::feature::features::bonus_chest::BonusChestFeature {}),
     );
     map.insert(
         "brown_mushroom".to_string(),
@@ -738,7 +734,7 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     map.insert(
         "chorus_plant".to_string(),
         ConfiguredFeature::ChorusPlant(
-            crate::generation::feature::features::chorus_plant::ChorusPlantFeature {},
+            crate::feature::features::chorus_plant::ChorusPlantFeature {},
         ),
     );
     map.insert(
@@ -847,15 +843,11 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     );
     map.insert(
         "crimson_fungus".to_string(),
-        ConfiguredFeature::HugeFungus(
-            crate::generation::feature::features::huge_fungus::HugeFungusFeature {},
-        ),
+        ConfiguredFeature::HugeFungus(crate::feature::features::huge_fungus::HugeFungusFeature {}),
     );
     map.insert(
         "crimson_fungus_planted".to_string(),
-        ConfiguredFeature::HugeFungus(
-            crate::generation::feature::features::huge_fungus::HugeFungusFeature {},
-        ),
+        ConfiguredFeature::HugeFungus(crate::feature::features::huge_fungus::HugeFungusFeature {}),
     );
     map.insert(
         "crimson_roots".to_string(),
@@ -922,18 +914,16 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     map.insert(
         "delta".to_string(),
         ConfiguredFeature::DeltaFeature(
-            crate::generation::feature::features::delta_feature::DeltaFeatureFeature {},
+            crate::feature::features::delta_feature::DeltaFeatureFeature {},
         ),
     );
     map.insert(
         "desert_well".to_string(),
-        ConfiguredFeature::DesertWell(
-            crate::generation::feature::features::desert_well::DesertWellFeature,
-        ),
+        ConfiguredFeature::DesertWell(crate::feature::features::desert_well::DesertWellFeature),
     );
     map.insert(
         "disk_clay".to_string(),
-        ConfiguredFeature::Disk(crate::generation::feature::features::disk::DiskFeature {
+        ConfiguredFeature::Disk(crate::feature::features::disk::DiskFeature {
             state_provider: BlockStateProvider::Simple(SimpleStateProvider {
                 state: pumpkin_data::Block::CLAY.default_state,
             }),
@@ -953,7 +943,7 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     );
     map.insert(
         "disk_grass".to_string(),
-        ConfiguredFeature::Disk(crate::generation::feature::features::disk::DiskFeature {
+        ConfiguredFeature::Disk(crate::feature::features::disk::DiskFeature {
             state_provider: BlockStateProvider::Rule(RuleBasedBlockStateProvider {
                 fallback: Some(Box::new(BlockStateProvider::Simple(SimpleStateProvider {
                     state: pumpkin_data::Block::DIRT.default_state,
@@ -1007,7 +997,7 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     );
     map.insert(
         "disk_gravel".to_string(),
-        ConfiguredFeature::Disk(crate::generation::feature::features::disk::DiskFeature {
+        ConfiguredFeature::Disk(crate::feature::features::disk::DiskFeature {
             state_provider: BlockStateProvider::Simple(SimpleStateProvider {
                 state: pumpkin_data::Block::GRAVEL.default_state,
             }),
@@ -1027,7 +1017,7 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     );
     map.insert(
         "disk_sand".to_string(),
-        ConfiguredFeature::Disk(crate::generation::feature::features::disk::DiskFeature {
+        ConfiguredFeature::Disk(crate::feature::features::disk::DiskFeature {
             state_provider: BlockStateProvider::Rule(RuleBasedBlockStateProvider {
                 fallback: Some(Box::new(BlockStateProvider::Simple(SimpleStateProvider {
                     state: pumpkin_data::Block::SAND.default_state,
@@ -1476,7 +1466,7 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     map.insert(
         "dripstone_cluster".to_string(),
         ConfiguredFeature::DripstoneCluster(
-            crate::generation::feature::features::drip_stone::cluster::DripstoneClusterFeature {},
+            crate::feature::features::drip_stone::cluster::DripstoneClusterFeature {},
         ),
     );
     map.insert(
@@ -1499,27 +1489,19 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     );
     map.insert(
         "end_gateway_delayed".to_string(),
-        ConfiguredFeature::EndGateway(
-            crate::generation::feature::features::end_gateway::EndGatewayFeature {},
-        ),
+        ConfiguredFeature::EndGateway(crate::feature::features::end_gateway::EndGatewayFeature {}),
     );
     map.insert(
         "end_gateway_return".to_string(),
-        ConfiguredFeature::EndGateway(
-            crate::generation::feature::features::end_gateway::EndGatewayFeature {},
-        ),
+        ConfiguredFeature::EndGateway(crate::feature::features::end_gateway::EndGatewayFeature {}),
     );
     map.insert(
         "end_island".to_string(),
-        ConfiguredFeature::EndIsland(
-            crate::generation::feature::features::end_island::EndIslandFeature {},
-        ),
+        ConfiguredFeature::EndIsland(crate::feature::features::end_island::EndIslandFeature {}),
     );
     map.insert(
         "end_platform".to_string(),
-        ConfiguredFeature::EndPlatform(
-            crate::generation::feature::features::end_platform::EndPlatformFeature,
-        ),
+        ConfiguredFeature::EndPlatform(crate::feature::features::end_platform::EndPlatformFeature),
     );
     map.insert(
         "end_spike".to_string(),
@@ -2172,36 +2154,34 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     );
     map.insert(
         "forest_rock".to_string(),
-        ConfiguredFeature::ForestRock(
-            crate::generation::feature::features::forest_rock::ForestRockFeature {
-                state: pumpkin_data::Block::MOSSY_COBBLESTONE.default_state,
-            },
-        ),
+        ConfiguredFeature::ForestRock(crate::feature::features::forest_rock::ForestRockFeature {
+            state: pumpkin_data::Block::MOSSY_COBBLESTONE.default_state,
+        }),
     );
     map.insert(
         "fossil_coal".to_string(),
-        ConfiguredFeature::Fossil(crate::generation::feature::features::fossil::FossilFeature {}),
+        ConfiguredFeature::Fossil(crate::feature::features::fossil::FossilFeature {}),
     );
     map.insert(
         "fossil_diamonds".to_string(),
-        ConfiguredFeature::Fossil(crate::generation::feature::features::fossil::FossilFeature {}),
+        ConfiguredFeature::Fossil(crate::feature::features::fossil::FossilFeature {}),
     );
     map.insert(
         "freeze_top_layer".to_string(),
         ConfiguredFeature::FreezeTopLayer(
-            crate::generation::feature::features::freeze_top_layer::FreezeTopLayerFeature {},
+            crate::feature::features::freeze_top_layer::FreezeTopLayerFeature {},
         ),
     );
     map.insert(
         "glow_lichen".to_string(),
         ConfiguredFeature::MultifaceGrowth(
-            crate::generation::feature::features::multiface_growth::MultifaceGrowthFeature {},
+            crate::feature::features::multiface_growth::MultifaceGrowthFeature {},
         ),
     );
     map.insert(
         "glowstone_extra".to_string(),
         ConfiguredFeature::GlowstoneBlob(
-            crate::generation::feature::features::glowstone_blob::GlowstoneBlobFeature {},
+            crate::feature::features::glowstone_blob::GlowstoneBlobFeature {},
         ),
     );
     map.insert(
@@ -2234,18 +2214,18 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     map.insert(
         "huge_brown_mushroom".to_string(),
         ConfiguredFeature::HugeBrownMushroom(
-            crate::generation::feature::features::huge_brown_mushroom::HugeBrownMushroomFeature {},
+            crate::feature::features::huge_brown_mushroom::HugeBrownMushroomFeature {},
         ),
     );
     map.insert(
         "huge_red_mushroom".to_string(),
         ConfiguredFeature::HugeRedMushroom(
-            crate::generation::feature::features::huge_red_mushroom::HugeRedMushroomFeature {},
+            crate::feature::features::huge_red_mushroom::HugeRedMushroomFeature {},
         ),
     );
     map.insert(
         "ice_patch".to_string(),
-        ConfiguredFeature::Disk(crate::generation::feature::features::disk::DiskFeature {
+        ConfiguredFeature::Disk(crate::feature::features::disk::DiskFeature {
             state_provider: BlockStateProvider::Simple(SimpleStateProvider {
                 state: pumpkin_data::Block::PACKED_ICE.default_state,
             }),
@@ -2270,47 +2250,41 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     );
     map.insert(
         "ice_spike".to_string(),
-        ConfiguredFeature::IceSpike(
-            crate::generation::feature::features::ice_spike::IceSpikeFeature {},
-        ),
+        ConfiguredFeature::IceSpike(crate::feature::features::ice_spike::IceSpikeFeature {}),
     );
     map.insert(
         "iceberg_blue".to_string(),
-        ConfiguredFeature::Iceberg(
-            crate::generation::feature::features::iceberg::IcebergFeature {
-                main_block: BlockStateCodec {
-                    name: &pumpkin_data::Block::BLUE_ICE,
-                    properties: None,
-                },
+        ConfiguredFeature::Iceberg(crate::feature::features::iceberg::IcebergFeature {
+            main_block: BlockStateCodec {
+                name: &pumpkin_data::Block::BLUE_ICE,
+                properties: None,
             },
-        ),
+        }),
     );
     map.insert(
         "iceberg_packed".to_string(),
-        ConfiguredFeature::Iceberg(
-            crate::generation::feature::features::iceberg::IcebergFeature {
-                main_block: BlockStateCodec {
-                    name: &pumpkin_data::Block::PACKED_ICE,
-                    properties: None,
-                },
+        ConfiguredFeature::Iceberg(crate::feature::features::iceberg::IcebergFeature {
+            main_block: BlockStateCodec {
+                name: &pumpkin_data::Block::PACKED_ICE,
+                properties: None,
             },
-        ),
+        }),
     );
     map . insert ("jungle_bush" . to_string () , ConfiguredFeature :: Tree (Box :: new (TreeFeature { trunk_provider : BlockStateProvider :: Simple (SimpleStateProvider { state : { let mut props = std :: collections :: HashMap :: new () ; props . insert ("axis" . to_string () , "y" . to_string ()) ; BlockStateCodec { name : & pumpkin_data :: Block :: JUNGLE_LOG , properties : Some (props) , } . get_state () } }) , trunk_placer : TrunkPlacer { base_height : 1u8 , height_rand_a : 0u8 , height_rand_b : 0u8 , r#type : TrunkType :: Straight (StraightTrunkPlacer) , } , foliage_provider : BlockStateProvider :: Simple (SimpleStateProvider { state : { let mut props = std :: collections :: HashMap :: new () ; props . insert ("distance" . to_string () , "7" . to_string ()) ; props . insert ("persistent" . to_string () , "false" . to_string ()) ; props . insert ("waterlogged" . to_string () , "false" . to_string ()) ; BlockStateCodec { name : & pumpkin_data :: Block :: OAK_LEAVES , properties : Some (props) , } . get_state () } }) , foliage_placer : FoliagePlacer { radius : IntProvider :: Constant (2i32) , offset : IntProvider :: Constant (1i32) , r#type : FoliageType :: Bush (BushFoliagePlacer { height : 2i32 }) } , minimum_size : FeatureSize { min_clipped_height : None , r#type : FeatureSizeType :: TwoLayersFeatureSize (TwoLayersFeatureSize { limit : 0u8 , lower_size : 0u8 , upper_size : 0u8 , }) } , ignore_vines : false , below_trunk_provider : BlockStateProvider :: Rule (RuleBasedBlockStateProvider { fallback : None , rules : vec ! [BlockStateRule { if_true : BlockPredicate :: Not (NotBlockPredicate { predicate : Box :: new (BlockPredicate :: MatchingBlockTag (MatchingBlockTagPredicate { offset : OffsetBlocksBlockPredicate { offset : None } , tag : pumpkin_data :: tag :: Block :: MINECRAFT_CANNOT_REPLACE_BELOW_TREE_TRUNK , })) , }) , then : BlockStateProvider :: Simple (SimpleStateProvider { state : pumpkin_data :: Block :: DIRT . default_state }) }] , }) , decorators : vec ! [] , }))) ;
     map . insert ("jungle_tree" . to_string () , ConfiguredFeature :: Tree (Box :: new (TreeFeature { trunk_provider : BlockStateProvider :: Simple (SimpleStateProvider { state : { let mut props = std :: collections :: HashMap :: new () ; props . insert ("axis" . to_string () , "y" . to_string ()) ; BlockStateCodec { name : & pumpkin_data :: Block :: JUNGLE_LOG , properties : Some (props) , } . get_state () } }) , trunk_placer : TrunkPlacer { base_height : 4u8 , height_rand_a : 8u8 , height_rand_b : 0u8 , r#type : TrunkType :: Straight (StraightTrunkPlacer) , } , foliage_provider : BlockStateProvider :: Simple (SimpleStateProvider { state : { let mut props = std :: collections :: HashMap :: new () ; props . insert ("distance" . to_string () , "7" . to_string ()) ; props . insert ("persistent" . to_string () , "false" . to_string ()) ; props . insert ("waterlogged" . to_string () , "false" . to_string ()) ; BlockStateCodec { name : & pumpkin_data :: Block :: JUNGLE_LEAVES , properties : Some (props) , } . get_state () } }) , foliage_placer : FoliagePlacer { radius : IntProvider :: Constant (2i32) , offset : IntProvider :: Constant (0i32) , r#type : FoliageType :: Blob (BlobFoliagePlacer { height : 3i32 }) } , minimum_size : FeatureSize { min_clipped_height : None , r#type : FeatureSizeType :: TwoLayersFeatureSize (TwoLayersFeatureSize { limit : 1u8 , lower_size : 0u8 , upper_size : 1u8 , }) } , ignore_vines : true , below_trunk_provider : BlockStateProvider :: Rule (RuleBasedBlockStateProvider { fallback : None , rules : vec ! [BlockStateRule { if_true : BlockPredicate :: Not (NotBlockPredicate { predicate : Box :: new (BlockPredicate :: MatchingBlockTag (MatchingBlockTagPredicate { offset : OffsetBlocksBlockPredicate { offset : None } , tag : pumpkin_data :: tag :: Block :: MINECRAFT_CANNOT_REPLACE_BELOW_TREE_TRUNK , })) , }) , then : BlockStateProvider :: Simple (SimpleStateProvider { state : pumpkin_data :: Block :: DIRT . default_state }) }] , }) , decorators : vec ! [TreeDecorator :: Cocoa (CocoaTreeDecorator { }) , TreeDecorator :: TrunkVine (TrunkVineTreeDecorator) , TreeDecorator :: LeaveVine (LeavesVineTreeDecorator { })] , }))) ;
     map . insert ("jungle_tree_no_vine" . to_string () , ConfiguredFeature :: Tree (Box :: new (TreeFeature { trunk_provider : BlockStateProvider :: Simple (SimpleStateProvider { state : { let mut props = std :: collections :: HashMap :: new () ; props . insert ("axis" . to_string () , "y" . to_string ()) ; BlockStateCodec { name : & pumpkin_data :: Block :: JUNGLE_LOG , properties : Some (props) , } . get_state () } }) , trunk_placer : TrunkPlacer { base_height : 4u8 , height_rand_a : 8u8 , height_rand_b : 0u8 , r#type : TrunkType :: Straight (StraightTrunkPlacer) , } , foliage_provider : BlockStateProvider :: Simple (SimpleStateProvider { state : { let mut props = std :: collections :: HashMap :: new () ; props . insert ("distance" . to_string () , "7" . to_string ()) ; props . insert ("persistent" . to_string () , "false" . to_string ()) ; props . insert ("waterlogged" . to_string () , "false" . to_string ()) ; BlockStateCodec { name : & pumpkin_data :: Block :: JUNGLE_LEAVES , properties : Some (props) , } . get_state () } }) , foliage_placer : FoliagePlacer { radius : IntProvider :: Constant (2i32) , offset : IntProvider :: Constant (0i32) , r#type : FoliageType :: Blob (BlobFoliagePlacer { height : 3i32 }) } , minimum_size : FeatureSize { min_clipped_height : None , r#type : FeatureSizeType :: TwoLayersFeatureSize (TwoLayersFeatureSize { limit : 1u8 , lower_size : 0u8 , upper_size : 1u8 , }) } , ignore_vines : true , below_trunk_provider : BlockStateProvider :: Rule (RuleBasedBlockStateProvider { fallback : None , rules : vec ! [BlockStateRule { if_true : BlockPredicate :: Not (NotBlockPredicate { predicate : Box :: new (BlockPredicate :: MatchingBlockTag (MatchingBlockTagPredicate { offset : OffsetBlocksBlockPredicate { offset : None } , tag : pumpkin_data :: tag :: Block :: MINECRAFT_CANNOT_REPLACE_BELOW_TREE_TRUNK , })) , }) , then : BlockStateProvider :: Simple (SimpleStateProvider { state : pumpkin_data :: Block :: DIRT . default_state }) }] , }) , decorators : vec ! [] , }))) ;
     map.insert(
         "kelp".to_string(),
-        ConfiguredFeature::Kelp(crate::generation::feature::features::kelp::KelpFeature {}),
+        ConfiguredFeature::Kelp(crate::feature::features::kelp::KelpFeature {}),
     );
     map.insert(
         "lake_lava".to_string(),
-        ConfiguredFeature::Lake(crate::generation::feature::features::lake::LakeFeature {}),
+        ConfiguredFeature::Lake(crate::feature::features::lake::LakeFeature {}),
     );
     map.insert(
         "large_basalt_columns".to_string(),
         ConfiguredFeature::BasaltColumns(
-            crate::generation::feature::features::basalt_columns::BasaltColumnsFeature {
+            crate::feature::features::basalt_columns::BasaltColumnsFeature {
                 height: IntProvider::Object(NormalIntProvider::Uniform(UniformIntProvider {
                     min_inclusive: 5i32,
                     max_inclusive: 10i32,
@@ -2325,7 +2299,7 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     map.insert(
         "large_dripstone".to_string(),
         ConfiguredFeature::LargeDripstone(
-            crate::generation::feature::features::drip_stone::large::LargeDripstoneFeature {},
+            crate::feature::features::drip_stone::large::LargeDripstoneFeature {},
         ),
     );
     map.insert(
@@ -2559,9 +2533,7 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     );
     map.insert(
         "monster_room".to_string(),
-        ConfiguredFeature::MonsterRoom(
-            crate::generation::feature::features::monster_room::DungeonFeature {},
-        ),
+        ConfiguredFeature::MonsterRoom(crate::feature::features::monster_room::DungeonFeature {}),
     );
     map.insert(
         "moss_patch".to_string(),
@@ -2723,13 +2695,13 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     map.insert(
         "ore_ancient_debris_large".to_string(),
         ConfiguredFeature::ScatteredOre(
-            crate::generation::feature::features::scattered_ore::ScatteredOreFeature {},
+            crate::feature::features::scattered_ore::ScatteredOreFeature {},
         ),
     );
     map.insert(
         "ore_ancient_debris_small".to_string(),
         ConfiguredFeature::ScatteredOre(
-            crate::generation::feature::features::scattered_ore::ScatteredOreFeature {},
+            crate::feature::features::scattered_ore::ScatteredOreFeature {},
         ),
     );
     map.insert(
@@ -3437,33 +3409,23 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     );
     map.insert(
         "pile_hay".to_string(),
-        ConfiguredFeature::BlockPile(
-            crate::generation::feature::features::block_pile::BlockPileFeature {},
-        ),
+        ConfiguredFeature::BlockPile(crate::feature::features::block_pile::BlockPileFeature {}),
     );
     map.insert(
         "pile_ice".to_string(),
-        ConfiguredFeature::BlockPile(
-            crate::generation::feature::features::block_pile::BlockPileFeature {},
-        ),
+        ConfiguredFeature::BlockPile(crate::feature::features::block_pile::BlockPileFeature {}),
     );
     map.insert(
         "pile_melon".to_string(),
-        ConfiguredFeature::BlockPile(
-            crate::generation::feature::features::block_pile::BlockPileFeature {},
-        ),
+        ConfiguredFeature::BlockPile(crate::feature::features::block_pile::BlockPileFeature {}),
     );
     map.insert(
         "pile_pumpkin".to_string(),
-        ConfiguredFeature::BlockPile(
-            crate::generation::feature::features::block_pile::BlockPileFeature {},
-        ),
+        ConfiguredFeature::BlockPile(crate::feature::features::block_pile::BlockPileFeature {}),
     );
     map.insert(
         "pile_snow".to_string(),
-        ConfiguredFeature::BlockPile(
-            crate::generation::feature::features::block_pile::BlockPileFeature {},
-        ),
+        ConfiguredFeature::BlockPile(crate::feature::features::block_pile::BlockPileFeature {}),
     );
     map . insert ("pine" . to_string () , ConfiguredFeature :: Tree (Box :: new (TreeFeature { trunk_provider : BlockStateProvider :: Simple (SimpleStateProvider { state : { let mut props = std :: collections :: HashMap :: new () ; props . insert ("axis" . to_string () , "y" . to_string ()) ; BlockStateCodec { name : & pumpkin_data :: Block :: SPRUCE_LOG , properties : Some (props) , } . get_state () } }) , trunk_placer : TrunkPlacer { base_height : 6u8 , height_rand_a : 4u8 , height_rand_b : 0u8 , r#type : TrunkType :: Straight (StraightTrunkPlacer) , } , foliage_provider : BlockStateProvider :: Simple (SimpleStateProvider { state : { let mut props = std :: collections :: HashMap :: new () ; props . insert ("distance" . to_string () , "7" . to_string ()) ; props . insert ("persistent" . to_string () , "false" . to_string ()) ; props . insert ("waterlogged" . to_string () , "false" . to_string ()) ; BlockStateCodec { name : & pumpkin_data :: Block :: SPRUCE_LEAVES , properties : Some (props) , } . get_state () } }) , foliage_placer : FoliagePlacer { radius : IntProvider :: Constant (1i32) , offset : IntProvider :: Constant (1i32) , r#type : FoliageType :: Pine (PineFoliagePlacer { height : IntProvider :: Object (NormalIntProvider :: Uniform (UniformIntProvider { min_inclusive : 3i32 , max_inclusive : 4i32 })) }) } , minimum_size : FeatureSize { min_clipped_height : None , r#type : FeatureSizeType :: TwoLayersFeatureSize (TwoLayersFeatureSize { limit : 2u8 , lower_size : 0u8 , upper_size : 2u8 , }) } , ignore_vines : true , below_trunk_provider : BlockStateProvider :: Rule (RuleBasedBlockStateProvider { fallback : None , rules : vec ! [BlockStateRule { if_true : BlockPredicate :: Not (NotBlockPredicate { predicate : Box :: new (BlockPredicate :: MatchingBlockTag (MatchingBlockTagPredicate { offset : OffsetBlocksBlockPredicate { offset : None } , tag : pumpkin_data :: tag :: Block :: MINECRAFT_CANNOT_REPLACE_BELOW_TREE_TRUNK , })) , }) , then : BlockStateProvider :: Simple (SimpleStateProvider { state : pumpkin_data :: Block :: DIRT . default_state }) }] , }) , decorators : vec ! [] , }))) ;
     map.insert(
@@ -3579,26 +3541,20 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     );
     map.insert(
         "rooted_azalea_tree".to_string(),
-        ConfiguredFeature::RootSystem(
-            crate::generation::feature::features::root_system::RootSystemFeature {},
-        ),
+        ConfiguredFeature::RootSystem(crate::feature::features::root_system::RootSystemFeature {}),
     );
     map.insert(
         "sculk_patch_ancient_city".to_string(),
-        ConfiguredFeature::SculkPatch(
-            crate::generation::feature::features::sculk_patch::SculkPatchFeature {},
-        ),
+        ConfiguredFeature::SculkPatch(crate::feature::features::sculk_patch::SculkPatchFeature {}),
     );
     map.insert(
         "sculk_patch_deep_dark".to_string(),
-        ConfiguredFeature::SculkPatch(
-            crate::generation::feature::features::sculk_patch::SculkPatchFeature {},
-        ),
+        ConfiguredFeature::SculkPatch(crate::feature::features::sculk_patch::SculkPatchFeature {}),
     );
     map.insert(
         "sculk_vein".to_string(),
         ConfiguredFeature::MultifaceGrowth(
-            crate::generation::feature::features::multiface_growth::MultifaceGrowthFeature {},
+            crate::feature::features::multiface_growth::MultifaceGrowthFeature {},
         ),
     );
     map.insert(
@@ -3634,7 +3590,7 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     map.insert(
         "small_basalt_columns".to_string(),
         ConfiguredFeature::BasaltColumns(
-            crate::generation::feature::features::basalt_columns::BasaltColumnsFeature {
+            crate::feature::features::basalt_columns::BasaltColumnsFeature {
                 height: IntProvider::Object(NormalIntProvider::Uniform(UniformIntProvider {
                     min_inclusive: 1i32,
                     max_inclusive: 4i32,
@@ -4145,19 +4101,19 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     map.insert(
         "twisting_vines".to_string(),
         ConfiguredFeature::TwistingVines(
-            crate::generation::feature::features::twisting_vines::TwistingVinesFeature {},
+            crate::feature::features::twisting_vines::TwistingVinesFeature {},
         ),
     );
     map.insert(
         "twisting_vines_bonemeal".to_string(),
         ConfiguredFeature::TwistingVines(
-            crate::generation::feature::features::twisting_vines::TwistingVinesFeature {},
+            crate::feature::features::twisting_vines::TwistingVinesFeature {},
         ),
     );
     map.insert(
         "underwater_magma".to_string(),
         ConfiguredFeature::UnderwaterMagma(
-            crate::generation::feature::features::underwater_magma::UnderwaterMagmaFeature {
+            crate::feature::features::underwater_magma::UnderwaterMagmaFeature {
                 floor_search_range: 5i32,
                 placement_radius: 1i32,
                 placement_probability: 0.5f32,
@@ -4166,12 +4122,12 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     );
     map.insert(
         "vines".to_string(),
-        ConfiguredFeature::Vines(crate::generation::feature::features::vines::VinesFeature),
+        ConfiguredFeature::Vines(crate::feature::features::vines::VinesFeature),
     );
     map.insert(
         "void_start_platform".to_string(),
         ConfiguredFeature::VoidStartPlatform(
-            crate::generation::feature::features::void_start_platform::VoidStartPlatformFeature {},
+            crate::feature::features::void_start_platform::VoidStartPlatformFeature {},
         ),
     );
     map . insert ("warm_ocean_vegetation" . to_string () , ConfiguredFeature :: SimpleRandomSelector (SimpleRandomFeature { features : vec ! [PlacedFeature { feature : Feature :: Inlined (Box :: new (ConfiguredFeature :: CoralTree (crate :: generation :: feature :: features :: coral :: coral_tree :: CoralTreeFeature))) , placement : vec ! [] , } , PlacedFeature { feature : Feature :: Inlined (Box :: new (ConfiguredFeature :: CoralClaw (crate :: generation :: feature :: features :: coral :: coral_claw :: CoralClawFeature))) , placement : vec ! [] , } , PlacedFeature { feature : Feature :: Inlined (Box :: new (ConfiguredFeature :: CoralMushroom (crate :: generation :: feature :: features :: coral :: coral_mushroom :: CoralMushroomFeature))) , placement : vec ! [] , }] , })) ;
@@ -4231,15 +4187,11 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     );
     map.insert(
         "warped_fungus".to_string(),
-        ConfiguredFeature::HugeFungus(
-            crate::generation::feature::features::huge_fungus::HugeFungusFeature {},
-        ),
+        ConfiguredFeature::HugeFungus(crate::feature::features::huge_fungus::HugeFungusFeature {}),
     );
     map.insert(
         "warped_fungus_planted".to_string(),
-        ConfiguredFeature::HugeFungus(
-            crate::generation::feature::features::huge_fungus::HugeFungusFeature {},
-        ),
+        ConfiguredFeature::HugeFungus(crate::feature::features::huge_fungus::HugeFungusFeature {}),
     );
     map.insert(
         "waterlily".to_string(),
@@ -4253,7 +4205,7 @@ fn build_configured_features() -> std::collections::HashMap<String, ConfiguredFe
     map.insert(
         "weeping_vines".to_string(),
         ConfiguredFeature::WeepingVines(
-            crate::generation::feature::features::weeping_vines::WeepingVinesFeature {},
+            crate::feature::features::weeping_vines::WeepingVinesFeature {},
         ),
     );
     map.insert(

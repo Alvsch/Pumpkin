@@ -155,3 +155,8 @@ spigot.yml
 version_history.json
 world_nether/
 world_the_end/
+
+# temp
+ROADMAP.txt
+ARCHITECTURE.md
+depgraphs/

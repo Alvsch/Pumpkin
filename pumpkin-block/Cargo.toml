@@ -1,0 +1,22 @@
+[package]
+name = "pumpkin-block"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+pumpkin-nbt.workspace = true
+pumpkin-util.workspace = true
+pumpkin-world-core.workspace = true
+pumpkin-data.workspace = true
+
+tokio.workspace = true
+crossbeam.workspace = true
+tracing.workspace = true
+futures.workspace = true
+rand.workspace = true
+uuid.workspace = true
+
+[lints]
+workspace = true

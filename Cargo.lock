@@ -2789,6 +2789,43 @@ dependencies = [
 name = "pumpkin"
 version = "0.1.0-dev+26.1"
 dependencies = [
+ "pumpkin-core",
+]
+
+[[package]]
+name = "pumpkin-api-macros"
+version = "0.1.0-dev+26.1"
+dependencies = [
+ "proc-macro-error2",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "pumpkin-codecs"
+version = "0.1.0-dev+26.1"
+dependencies = [
+ "either",
+ "serde_json",
+ "tracing",
+]
+
+[[package]]
+name = "pumpkin-config"
+version = "0.1.0-dev+26.1"
+dependencies = [
+ "pumpkin-util",
+ "serde",
+ "toml 1.1.2+spec-1.1.0",
+ "tracing",
+ "uuid",
+]
+
+[[package]]
+name = "pumpkin-core"
+version = "0.1.0-dev+26.1"
+dependencies = [
  "arc-swap",
  "base64 0.22.1",
  "bitflags 2.11.1",
@@ -2837,36 +2874,6 @@ dependencies = [
  "wasmparser 0.247.0",
  "wasmtime",
  "wasmtime-wasi",
-]
-
-[[package]]
-name = "pumpkin-api-macros"
-version = "0.1.0-dev+26.1"
-dependencies = [
- "proc-macro-error2",
- "proc-macro2",
- "quote",
- "syn",
-]
-
-[[package]]
-name = "pumpkin-codecs"
-version = "0.1.0-dev+26.1"
-dependencies = [
- "either",
- "serde_json",
- "tracing",
-]
-
-[[package]]
-name = "pumpkin-config"
-version = "0.1.0-dev+26.1"
-dependencies = [
- "pumpkin-util",
- "serde",
- "toml 1.1.2+spec-1.1.0",
- "tracing",
- "uuid",
 ]
 
 [[package]]
@@ -2921,6 +2928,10 @@ dependencies = [
  "tracing",
  "uuid",
 ]
+
+[[package]]
+name = "pumpkin-pie"
+version = "0.1.0-dev+26.1"
 
 [[package]]
 name = "pumpkin-plugin-api"
@@ -3002,6 +3013,7 @@ dependencies = [
  "pumpkin-data",
  "pumpkin-nbt",
  "pumpkin-util",
+ "pumpkin-world-gen",
  "rand 0.10.1",
  "rayon",
  "rustc-hash",
@@ -3017,6 +3029,53 @@ dependencies = [
  "tracing",
  "uuid",
  "xxhash-rust",
+]
+
+[[package]]
+name = "pumpkin-world-core"
+version = "0.1.0-dev+26.1"
+dependencies = [
+ "bitflags 2.11.1",
+ "bytes",
+ "crossbeam",
+ "dashmap",
+ "flate2",
+ "futures",
+ "itertools 0.14.0",
+ "lz4-java-wrc",
+ "pumpkin-config",
+ "pumpkin-data",
+ "pumpkin-nbt",
+ "pumpkin-util",
+ "rand 0.10.1",
+ "rayon",
+ "rustc-hash",
+ "ruzstd",
+ "serde",
+ "thiserror 2.0.18",
+ "tokio",
+ "tokio-util",
+ "tracing",
+ "uuid",
+ "xxhash-rust",
+]
+
+[[package]]
+name = "pumpkin-world-gen"
+version = "0.1.0-dev+26.1"
+dependencies = [
+ "dashmap",
+ "enum_dispatch",
+ "itertools 0.14.0",
+ "pumpkin-data",
+ "pumpkin-nbt",
+ "pumpkin-util",
+ "pumpkin-world-core",
+ "rustc-hash",
+ "serde",
+ "sha2 0.11.0",
+ "thiserror 2.0.18",
+ "tracing",
 ]
 
 [[package]]

@@ -6,6 +6,8 @@ rust-version.workspace = true
 license.workspace = true
 
 [dependencies]
+pumpkin-world-gen.workspace = true
+
 pumpkin-nbt.workspace = true
 pumpkin-util.workspace = true
 pumpkin-config.workspace = true

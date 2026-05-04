@@ -1,0 +1,25 @@
+[package]
+name = "pumpkin-world-gen"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+pumpkin-data.workspace = true
+pumpkin-util.workspace = true
+pumpkin-nbt.workspace = true
+pumpkin-world-core.workspace = true
+
+rustc-hash.workspace = true
+itertools.workspace = true
+serde.workspace = true
+enum_dispatch.workspace = true
+sha2.workspace = true
+dashmap.workspace = true
+thiserror.workspace = true
+
+tracing.workspace = true
+
+[lints]
+workspace = true
