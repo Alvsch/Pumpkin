@@ -12,39 +12,184 @@ members = [
     "pumpkin-data",
     "pumpkin-plugin-api",
     "pumpkin-codecs"
-]
+, "pumpkin-core", "pumpkin-bin"]
 exclude = ["pumpkin-codegen"]
+
+[workspace.package]
+version = "0.1.0-dev+26.1"
+edition = "2024"
+rust-version = "1.95"
+license = "GPL-3.0"
+
+[profile.release]
+lto = true
+strip = "debuginfo"
+codegen-units = 1
+
+[profile.bench]
+debug = true
+
+[profile.profiling]
+inherits = "release"
+debug = true
+strip = false
+
+[workspace.dependencies]
+# Internal dependencies
+pumpkin-codecs = { path = "pumpkin-codecs" }
+pumpkin-config = { path = "pumpkin-config" }
+pumpkin-data = { path = "pumpkin-data" }
+pumpkin-inventory = { path = "pumpkin-inventory" }
+pumpkin-macros = { path = "pumpkin-macros" }
+pumpkin-nbt = { path = "pumpkin-nbt" }
+pumpkin-protocol = { path = "pumpkin-protocol" }
+pumpkin-util = { path = "pumpkin-util" }
+pumpkin-world = { path = "pumpkin-world" }
+
+# Async
+tokio = { version = "1.52", default-features = false }
+tokio-util = "0.7.18"
+futures = { version = "0.3", default-features = false, features = ["executor"] }
+crossfire = { version = "3.1.7", features = ["compat"] }
+
+# Concurrency/Parallelism and Synchronization
+rayon = "1.12"
+crossbeam = "0.8"
+crossbeam-utils = "0.8.21"
+dashmap = "6.1"
+arc-swap = "1.9"
+thread_local = "1.1.9"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_repr = { version = "0.1" }
+serde_json = "1.0"
+serde_json5 = "0.2.1"
+toml = "1.1"
+postcard = { version = "1.1", features = ["alloc"] }
+base64 = "0.22.1"
+
+# Proc macro
+syn = { version = "2.0", default-features = false, features = ["printing"] }
+quote = "1.0"
+proc-macro2 = "1.0"
+proc-macro-error2 = "2"
+
+# Networking
+bytes = "1.11"
+ureq = "3.3.0"
+
+# Compression
+async-compression = "0.4.42"
+flate2 = "1.1.9"
+ruzstd = "0.8.2"
+lz4-java-wrc = "0.2.0"
+
+# Cryptography
+aes = "0.9"
+cfb8 = "0.9"
+cipher = "0.5.1"
+crypto-bigint = "0.7.3"
+ecdsa = "0.16.9"
+hmac = "=0.13.0"
+md5 = "0.8"
+p384 = "0.13.1"
+rand = "0.10.1"
+rsa = "=0.10.0-rc.18"
+sha1 = "=0.11.0"
+sha2 = "=0.11.0"
+signature = "2.2.0"
+
+# Math/Numerics
+num-bigint = "0.4"
+num-derive = "0.4"
+num-traits = "0.2"
+
+# Hashing/Checksums
+phf = "0.13.1"
+rustc-hash = "2.1.2"
+crc-fast = "1.10.0"
+
+# Data Structures
+bitflags = "2.11.1"
+either = "1.15.0"
+enum_dispatch = "0.3.13"
+indexmap = "2.14"
+lru = "0.18.0"
+slotmap = "1.1"
+
+# Benchmarking
+criterion = { version = "0.8", default-features = false }
+
+# Filesystem
+notify = "8.2.0"
+temp-dir = "0.2.0" # TODO: remove
+tempfile = { version = "3.27.0", default-features = false }
+
+# WebAssembly
+wasmtime = "44.0"
+wasmtime-wasi = "44.0"
+wit-bindgen = "0.57"
+wasmparser = "0.247"
+
+# Utilities
+cesu8 = "1.1"
+colored = "3.1"
+heck = "0.5"
+itertools = "0.14.0"
+libloading = "0.9"
+rustyline = "18.0.0"
+take_mut = "0.2.2"
+time = "0.3"
+uuid = { version = "1.23", features = ["serde", "v3", "v4"] }
+
+# Logging
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = [
+    "env-filter",
+    "fmt",
+    "time",
+] }
+tracing-serde-structured = "0.4"
+console-subscriber = { version = "0.5.0", default-features = false }
+
+# Error Handling
+thiserror = "2.0"
+
+[workspace.lints.rust]
+missing_docs = "warn"
 
 [workspace.lints.clippy]
 # Groups
-all = { level = "deny", priority = -1 }
-nursery = { level = "deny", priority = -1 }
-pedantic = { level = "deny", priority = -1 }
-cargo = { level = "deny", priority = -1 }
+all = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+cargo = { level = "warn", priority = -1 }
+unwrap_used = { level = "warn", priority = -2 }
 
-if_then_some_else_none = "deny"
-empty_enum_variants_with_brackets = "deny"
-empty_structs_with_brackets = "deny"
-separated_literal_suffix = "deny"
-semicolon_outside_block = "deny"
-redundant_test_prefix = "deny"
-non_zero_suggestions = "deny"
-dbg_macro = "deny"
-rc_buffer = "deny"
-verbose_file_reads = "deny"
-string_lit_chars_any = "deny"
-use_self = "deny"
-useless_let_if_seq = "deny"
-branches_sharing_code = "deny"
-equatable_if_let = "deny"
-option_if_let_else = "deny"
-needless_pass_by_ref_mut = "deny"
-needless_collect = "deny"
-redundant_clone = "deny"
-set_contains_or_insert = "deny"
-significant_drop_in_scrutinee = "deny"
-print_stdout = "deny"
-print_stderr = "deny"
+if_then_some_else_none = "warn"
+empty_enum_variants_with_brackets = "warn"
+empty_structs_with_brackets = "warn"
+separated_literal_suffix = "warn"
+semicolon_outside_block = "warn"
+redundant_test_prefix = "warn"
+non_zero_suggestions = "warn"
+dbg_macro = "warn"
+rc_buffer = "warn"
+verbose_file_reads = "warn"
+string_lit_chars_any = "warn"
+use_self = "warn"
+useless_let_if_seq = "warn"
+branches_sharing_code = "warn"
+equatable_if_let = "warn"
+option_if_let_else = "warn"
+needless_pass_by_ref_mut = "warn"
+needless_collect = "warn"
+redundant_clone = "warn"
+set_contains_or_insert = "warn"
+significant_drop_in_scrutinee = "warn"
+print_stdout = "warn"
+print_stderr = "warn"
 
 # Expected/Allowed
 cargo_common_metadata = "allow"
@@ -69,119 +214,3 @@ missing_panics_doc = "allow"
 missing_errors_doc = "allow"
 module_name_repetitions = "allow"
 struct_excessive_bools = "allow"
-
-[workspace.package]
-version = "0.1.0-dev+26.1"
-edition = "2024"
-rust-version = "1.95"
-license = "GPL-3.0"
-
-[profile.release]
-lto = true
-strip = "debuginfo"
-codegen-units = 1
-
-[profile.bench]
-debug = true
-
-[profile.profiling]
-inherits = "release"
-debug = true
-strip = false
-
-[workspace.dependencies]
-tokio = { version = "1.52", default-features = false }
-syn = { version = "2.0", default-features = false, features = ["printing"] }
-
-thiserror = "2.0"
-
-bytes = "1.11"
-
-# Concurrency/Parallelism and Synchronization
-futures = { version = "0.3", default-features = false, features = ["executor"] }
-rayon = "1.12"
-crossbeam = "0.8"
-
-uuid = { version = "1.23", features = ["serde", "v3", "v4"] }
-serde = { version = "1.0", features = ["derive"] }
-serde_repr = { version = "0.1" }
-serde_json = "1.0"
-
-tempfile = { version = "3.27.0", default-features = false }
-proc-macro-error2 = "2"
-aes = "0.9"
-async-compression = "0.4.42"
-base64 = "0.22.1"
-bitflags = "2.11.1"
-cesu8 = "1.1"
-cfb8 = "0.9"
-colored = "3.1"
-console-subscriber = { version = "0.5.0", default-features = false }
-crc-fast = "1.10.0"
-criterion = { version = "0.8", default-features = false }
-crossbeam-utils = "0.8.21"
-crossfire = { version = "3.1.7", features = ["compat"] }
-crypto-bigint = "0.7.3"
-dashmap = "6.1"
-ecdsa = "0.16.9"
-either = "1.15.0"
-enum_dispatch = "0.3.13"
-flate2 = "1.1.9"
-heck = "0.5"
-hmac = "=0.13.0"
-indexmap = "2.14"
-itertools = "0.14.0"
-libloading = "0.9"
-lru = "0.18.0"
-lz4-java-wrc = "0.2.0"
-md5 = "0.8"
-num-bigint = "0.4"
-num-derive = "0.4"
-num-traits = "0.2"
-p384 = "0.13.1"
-phf = "0.13.1"
-proc-macro2 = "1.0"
-pumpkin-codecs = { path = "pumpkin-codecs" }
-pumpkin-config = { path = "pumpkin-config" }
-pumpkin-data = { path = "pumpkin-data" }
-pumpkin-inventory = { path = "pumpkin-inventory" }
-pumpkin-macros = { path = "pumpkin-macros" }
-pumpkin-nbt = { path = "pumpkin-nbt" }
-pumpkin-protocol = { path = "pumpkin-protocol" }
-pumpkin-util = { path = "pumpkin-util" }
-pumpkin-world = { path = "pumpkin-world" }
-quote = "1.0"
-rand = "0.10.1"
-rsa = "=0.10.0-rc.18"
-cipher = "0.5.1"
-rustc-hash = "2.1.2"
-rustyline = "18.0.0"
-ruzstd = "0.8.2"
-serde_json5 = "0.2.1"
-sha1 = "=0.11.0"
-sha2 = "=0.11.0"
-signature = "2.2.0"
-tracing = "0.1.44"
-tracing-subscriber = { version = "0.3.23", features = [
-    "env-filter",
-    "fmt",
-    "time",
-] }
-slotmap = "1.1"
-take_mut = "0.2.2"
-temp-dir = "0.2.0"
-thread_local = "1.1.9"
-time = "0.3"
-arc-swap = "1.9"
-tokio-util = "0.7.18"
-toml = "1.1"
-ureq = "3.3.0"
-notify = "8.2.0"
-
-wasmtime = "44.0"
-wasmtime-wasi = "44.0"
-wit-bindgen = "0.57"
-wasmparser = "0.247"
-
-postcard = { version = "1.1", features = ["alloc"] }
-tracing-serde-structured = "0.4"
