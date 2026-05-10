@@ -52,6 +52,10 @@ pub use wit::pumpkin::plugin::{
     context::{Context, Server},
     entity, gui, permission, player, scoreboard, server, text, world,
 };
+// NOTE: previously missing exports
+pub use wit::pumpkin::plugin::{
+    bedrock_packets, boss_bar, entity_types, i18n, java_packets, particles,
+};
 
 pub mod logging;
 
