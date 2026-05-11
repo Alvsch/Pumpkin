@@ -1,9 +1,11 @@
 pub mod ack;
+#[cfg(feature = "clientbound")]
 pub mod client;
 pub mod frame_set;
 pub mod network_item;
 pub mod packet_decoder;
 pub mod packet_encoder;
+#[cfg(feature = "serverbound")]
 pub mod server;
 
 pub const RAKNET_PROTOCOL_VERSION: u8 = 11;

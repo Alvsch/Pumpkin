@@ -6,16 +6,18 @@ rust-version.workspace = true
 license.workspace = true
 
 [features]
-default = ["query"]
-serverbound = []
-clientbound = []
+default = ["query", "bedrock", "clientbound", "serverbound"]
+full = ["dep:pumpkin-world", "dep:pumpkin-data"]
+bedrock = ["full"]
+serverbound = ["full", "dep:pumpkin-macros"]
+clientbound = ["full", "dep:pumpkin-macros"]
 query = []
 
 [dependencies]
 pumpkin-nbt.workspace = true
-pumpkin-data = { workspace = true, features = ["packet", "item_id_remap", "entity_id_remap", "sound_id_remap", "recipes"] }
-pumpkin-macros.workspace = true
-pumpkin-world.workspace = true
+pumpkin-data = { workspace = true, features = ["packet", "item_id_remap", "entity_id_remap", "sound_id_remap", "recipes"], optional = true }
+pumpkin-macros = { workspace = true, optional = true }
+pumpkin-world = { workspace = true, optional = true }
 pumpkin-util.workspace = true
 
 uuid.workspace = true

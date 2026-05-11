@@ -24,6 +24,7 @@ use tokio::io::{AsyncRead, AsyncWrite, ReadBuf};
 
 use crate::packet::{MultiVersionJavaPacket, Packet};
 
+#[cfg(feature = "bedrock")]
 pub mod bedrock;
 pub mod codec;
 pub mod java;
