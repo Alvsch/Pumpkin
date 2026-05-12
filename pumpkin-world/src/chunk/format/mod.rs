@@ -1,15 +1,16 @@
 use std::{
     path::PathBuf,
     pin::Pin,
-    sync::{
-        RwLock,
-        atomic::{AtomicBool, Ordering},
-    },
+    sync::atomic::{AtomicBool, AtomicU32, Ordering},
 };
 
 use bytes::Bytes;
+use pumpkin_chunk::{
+    BiomePalette, BlockPalette, Heightmaps, LightContainer, LightData, SectionBiomes,
+    SectionBlockStates, Sections,
+};
 use pumpkin_data::{Block, chunk::ChunkStatus, fluid::Fluid};
-use pumpkin_nbt::{compound::NbtCompound, nbt_long_array};
+use pumpkin_nbt::compound::NbtCompound;
 use rustc_hash::FxHashMap;
 use tokio::sync::Mutex;
 use tracing::debug;
@@ -17,7 +18,7 @@ use uuid::Uuid;
 
 use crate::{
     chunk::{
-        ChunkEntityData, ChunkReadingError, ChunkSerializingError,
+        ChunkEntityData, ChunkParsingError, ChunkReadingError, ChunkSerializingError,
         format::anvil::{SingleChunkDataSerializer, WORLD_DATA_VERSION},
         io::{Dirtiable, file_manager::PathFromLevelFolder},
     },
@@ -29,10 +30,6 @@ use pumpkin_util::math::position::BlockPos;
 use pumpkin_util::math::vector2::Vector2;
 use serde::{Deserialize, Serialize};
 
-use super::{
-    ChunkData, ChunkHeightmaps, ChunkLight, ChunkParsingError, ChunkSections,
-    palette::{BiomePalette, BlockPalette},
-};
 pub mod anvil;
 pub mod linear;
 pub mod pump;
@@ -130,7 +127,7 @@ impl ChunkData {
         }
 
         // Assemble the LightEngine
-        let light_engine = ChunkLight {
+        let light_engine = LightData {
             block_light: block_lights.into_boxed_slice(),
             sky_light: sky_lights.into_boxed_slice(),
         };
@@ -138,13 +135,13 @@ impl ChunkData {
         // Assemble the ChunkSections
         let min_y = section_coords::section_to_block(chunk_data.min_y_section);
         let (random_tick_sections, randomly_ticking_mask) =
-            ChunkSections::build_random_tick_sections_cache(&block_palettes);
-        let section = ChunkSections {
+            Sections::build_random_tick_sections_cache(&block_palettes);
+        let section = Sections {
             count: block_palettes.len(),
-            block_sections: RwLock::new(block_palettes.into_boxed_slice()),
-            random_tick_sections: RwLock::new(random_tick_sections),
-            randomly_ticking_mask: std::sync::atomic::AtomicU32::new(randomly_ticking_mask),
-            biome_sections: RwLock::new(biome_palettes.into_boxed_slice()),
+            block_sections: block_palettes.into_boxed_slice(),
+            random_tick_sections,
+            randomly_ticking_mask: AtomicU32::new(randomly_ticking_mask),
+            biome_sections: biome_palettes.into_boxed_slice(),
             min_y,
         };
         Ok(Self {
@@ -344,9 +341,9 @@ impl ChunkEntityData {
 #[derive(Serialize, Deserialize)]
 struct ChunkSectionNBT {
     #[serde(skip_serializing_if = "Option::is_none")]
-    block_states: Option<ChunkSectionBlockStates>,
+    block_states: Option<SectionBlockStates>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    biomes: Option<ChunkSectionBiomes>,
+    biomes: Option<SectionBiomes>,
     #[serde(rename = "BlockLight", skip_serializing_if = "Option::is_none")]
     block_light: Option<Box<[u8]>>,
     #[serde(rename = "SkyLight", skip_serializing_if = "Option::is_none")]
@@ -359,115 +356,14 @@ struct ChunkSectionNBT {
 #[serde(rename_all = "PascalCase")]
 struct ChunkSectionNbtRef<'a> {
     #[serde(skip_serializing_if = "Option::is_none")]
-    block_states: Option<ChunkSectionBlockStates>,
+    block_states: Option<SectionBlockStates>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    biomes: Option<ChunkSectionBiomes>,
+    biomes: Option<SectionBiomes>,
     #[serde(skip_serializing_if = "Option::is_none")]
     block_light: Option<&'a [u8]>,
     #[serde(skip_serializing_if = "Option::is_none")]
     sky_light: Option<&'a [u8]>,
     y: i8,
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct ChunkSectionBiomes {
-    #[serde(
-        serialize_with = "nbt_long_array",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub(crate) data: Option<Box<[i64]>>,
-    pub(crate) palette: Box<[u8]>,
-}
-
-#[derive(Serialize, Deserialize, Clone)]
-pub struct ChunkSectionBlockStates {
-    #[serde(
-        serialize_with = "nbt_long_array",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub(crate) data: Option<Box<[i64]>>,
-    pub(crate) palette: Box<[u16]>,
-}
-
-#[derive(Debug, Clone)]
-pub enum LightContainer {
-    Empty(u8),
-    Full(Box<[u8]>),
-}
-
-impl LightContainer {
-    pub const DIM: usize = 16;
-    pub const ARRAY_SIZE: usize = Self::DIM * Self::DIM * Self::DIM / 2;
-
-    #[must_use]
-    pub fn new_empty(default: u8) -> Self {
-        assert!(default <= 15, "Default value must be between 0 and 15");
-        Self::Empty(default)
-    }
-
-    #[must_use]
-    pub fn new(data: Box<[u8]>) -> Self {
-        assert!(
-            data.len() == Self::ARRAY_SIZE,
-            "Data length must be {}",
-            Self::ARRAY_SIZE
-        );
-        Self::Full(data)
-    }
-
-    #[must_use]
-    pub fn new_filled(default: u8) -> Self {
-        assert!(default <= 15, "Default value must be between 0 and 15");
-        let value = default << 4 | default;
-        Self::Full([value; Self::ARRAY_SIZE].into())
-    }
-
-    #[must_use]
-    pub const fn is_empty(&self) -> bool {
-        matches!(self, Self::Empty(_))
-    }
-
-    const fn index(x: usize, y: usize, z: usize) -> usize {
-        y * 16 * 16 + z * 16 + x
-    }
-
-    #[must_use]
-    pub fn get(&self, x: usize, y: usize, z: usize) -> u8 {
-        match self {
-            Self::Full(data) => {
-                let index = Self::index(x, y, z);
-                data[index >> 1] >> (4 * (index & 1)) & 0x0F
-            }
-            Self::Empty(default) => *default,
-        }
-    }
-
-    pub fn set(&mut self, x: usize, y: usize, z: usize, value: u8) {
-        match self {
-            Self::Full(data) => {
-                let index = Self::index(x, y, z);
-                let mask = 0x0F << (4 * (index & 1));
-                data[index >> 1] &= !mask;
-                data[index >> 1] |= value << (4 * (index & 1));
-            }
-            Self::Empty(default) => {
-                if value != *default {
-                    *self = Self::new_filled(*default);
-                    self.set(x, y, z, value);
-                }
-            }
-        }
-    }
-
-    pub fn fill(&mut self, value: u8) {
-        *self = Self::new_filled(value);
-    }
-}
-
-impl Default for LightContainer {
-    fn default() -> Self {
-        Self::new_empty(15)
-    }
 }
 
 #[derive(Serialize, Deserialize)]
@@ -483,7 +379,7 @@ struct ChunkNbt {
     status: ChunkStatus,
     #[serde(rename = "sections")]
     sections: Vec<ChunkSectionNBT>,
-    heightmaps: ChunkHeightmaps,
+    heightmaps: Heightmaps,
     #[serde(rename = "block_ticks")]
     block_ticks: Vec<ScheduledTick<&'static Block>>,
     #[serde(rename = "fluid_ticks")]
@@ -507,7 +403,7 @@ struct ChunkNbtRef<'a> {
     status: &'a ChunkStatus,
     #[serde(rename = "sections")]
     sections: Vec<ChunkSectionNbtRef<'a>>,
-    heightmaps: &'a ChunkHeightmaps,
+    heightmaps: &'a Heightmaps,
     #[serde(rename = "block_ticks")]
     block_ticks: &'a [ScheduledTick<&'static Block>],
     #[serde(rename = "fluid_ticks")]

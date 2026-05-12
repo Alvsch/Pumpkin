@@ -1,5 +1,5 @@
-use crate::chunk::{ChunkData, ChunkLight, ChunkSections};
 use crate::generation::biome_coords;
+use pumpkin_chunk::{LightData, Sections};
 use pumpkin_config::lighting::LightingEngineConfig;
 use pumpkin_data::dimension::Dimension;
 use rustc_hash::FxHashMap;
@@ -228,14 +228,14 @@ impl Chunk {
         let proto_chunk_box = match std::mem::replace(
             self,
             Self::Level(Arc::new(ChunkData {
-                section: ChunkSections::new(0, 0),
+                section: Sections::new(0, 0),
                 heightmap: Default::default(),
                 x: 0,
                 z: 0,
                 block_ticks: Default::default(),
                 fluid_ticks: Default::default(),
                 pending_block_entities: Default::default(),
-                light_engine: Mutex::new(ChunkLight::default()),
+                light_engine: Mutex::new(LightData::default()),
                 light_populated: AtomicBool::new(false),
                 status: ChunkStatus::Empty,
                 blending_data: None,

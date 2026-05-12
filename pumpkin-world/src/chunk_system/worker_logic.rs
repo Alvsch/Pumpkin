@@ -2,17 +2,16 @@ use super::chunk_state::{Chunk, StagedChunkEnum};
 use super::generation_cache::Cache;
 use super::{ChunkPos, IOLock};
 use crate::ProtoChunk;
-use crate::chunk::format::LightContainer;
 use crate::chunk::io::LoadedData;
 use crate::chunk::io::LoadedData::Loaded;
 use crate::level::Level;
 use crossfire::compat::AsyncRx;
+use pumpkin_chunk::{LightContainer, LightData};
 use pumpkin_config::lighting::LightingEngineConfig;
 use pumpkin_data::chunk::ChunkStatus;
 use pumpkin_data::chunk_gen_settings::GenerationSettings;
 use std::collections::hash_map::Entry;
 use std::sync::Arc;
-use std::sync::atomic::Ordering::Relaxed;
 use tracing::{debug, error, warn};
 
 pub enum RecvChunk {
@@ -28,23 +27,22 @@ pub enum RecvChunk {
 /// Checks if a chunk needs relighting based on the current lighting configuration
 /// Returns true if the chunk has uniform lighting (from full/dark mode) but the server
 /// is now running in default mode (which needs proper lighting calculation)
-fn needs_relighting(chunk: &crate::chunk::ChunkData, config: &LightingEngineConfig) -> bool {
+fn needs_relighting(light_data: &LightData, config: &LightingEngineConfig) -> bool {
     if *config != LightingEngineConfig::Default {
         return false;
     }
 
     // If the chunk says it's already lit, believe it.
-    if chunk.light_populated.load(Relaxed) {
-        return false;
-    }
-
-    let engine = chunk.light_engine.lock().expect("Mutex poisoned");
+    // NOTES: uncomment
+    // if chunk.light_populated.load(Ordering::Relaxed) {
+    //     return false;
+    // }
 
     // Scan for any complex lighting data
-    let has_complex_light = engine.sky_light.iter().any(|lc| match lc {
+    let has_complex_light = light_data.sky_light.iter().any(|lc| match lc {
         LightContainer::Full(data) => data.iter().any(|&b| b != 0x00 && b != 0xFF),
         LightContainer::Empty(val) => *val != 0 && *val != 15,
-    }) || engine.block_light.iter().any(|lc| match lc {
+    }) || light_data.block_light.iter().any(|lc| match lc {
         LightContainer::Full(data) => data.iter().any(|&b| b != 0x00 && b != 0xFF),
         LightContainer::Empty(val) => *val != 0 && *val != 15,
     });

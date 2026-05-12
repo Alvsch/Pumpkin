@@ -1,11 +1,11 @@
 use super::chunk_state::{Chunk, StagedChunkEnum};
+use crate::ProtoChunk;
 use crate::block::RawBlockState;
-use crate::chunk::ChunkHeightmapType;
 use crate::generation::generator;
 use crate::generation::height_limit::HeightLimitView;
 use crate::generation::proto_chunk::GenerationCache;
 use crate::world::{BlockAccessor, WorldPortalExt};
-use crate::{BlockStateId, ProtoChunk};
+use pumpkin_chunk::{BlockStateId, HeightmapType};
 use pumpkin_config::lighting::LightingEngineConfig;
 use pumpkin_data::biome::Biome;
 use pumpkin_data::block_properties::is_air;
@@ -249,7 +249,7 @@ impl GenerationCache for Cache {
                 let heightmap = data.heightmap.lock().unwrap();
                 let min_y = data.section.min_y;
 
-                heightmap.get(ChunkHeightmapType::MotionBlocking, x, z, min_y)
+                heightmap.get(HeightmapType::MotionBlocking, x, z, min_y)
             }
             Chunk::Proto(data) => data.top_motion_blocking_block_height_exclusive(x, z),
         }
@@ -264,7 +264,7 @@ impl GenerationCache for Cache {
             Chunk::Level(data) => {
                 let heightmap = data.heightmap.lock().unwrap();
                 let min_y = data.section.min_y;
-                heightmap.get(ChunkHeightmapType::MotionBlockingNoLeaves, x, z, min_y)
+                heightmap.get(HeightmapType::MotionBlockingNoLeaves, x, z, min_y)
             }
             Chunk::Proto(data) => data.top_motion_blocking_block_no_leaves_height_exclusive(x, z),
         }
@@ -279,7 +279,7 @@ impl GenerationCache for Cache {
             Chunk::Level(data) => {
                 let heightmap = data.heightmap.lock().unwrap();
                 let min_y = data.section.min_y;
-                heightmap.get(ChunkHeightmapType::WorldSurface, x, z, min_y) // can we return this?
+                heightmap.get(HeightmapType::WorldSurface, x, z, min_y) // can we return this?
             }
             Chunk::Proto(data) => data.top_block_height_exclusive(x, z),
         }

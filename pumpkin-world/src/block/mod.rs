@@ -4,11 +4,10 @@ pub mod viewer;
 
 use std::collections::HashMap;
 
+use pumpkin_chunk::BlockStateId;
 use pumpkin_data::{Block, BlockState};
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 pub use state::RawBlockState;
-
-use crate::BlockStateId;
 
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "PascalCase")]
@@ -71,9 +70,8 @@ impl BlockStateCodec {
 
 #[cfg(test)]
 mod test {
+    use pumpkin_chunk::BLOCK_NETWORK_MAX_BITS;
     use pumpkin_data::Block;
-
-    use crate::chunk::palette::BLOCK_NETWORK_MAX_BITS;
 
     #[test]
     fn proper_network_bits_per_entry() {

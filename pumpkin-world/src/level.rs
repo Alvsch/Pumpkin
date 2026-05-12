@@ -4,13 +4,11 @@ use crate::chunk_system::{ChunkListener, ChunkLoading, GenerationSchedule, Level
 use crate::generation::generator::VanillaGenerator;
 use crate::lighting::DynamicLightEngine;
 use crate::{
-    BlockStateId,
     block::RawBlockState,
     chunk::{
-        ChunkData, ChunkEntityData, ChunkReadingError,
+        ChunkEntityData, ChunkReadingError,
         format::anvil::AnvilChunkFile,
         io::{Dirtiable, FileIO, LoadedData, file_manager::ChunkFileManager},
-        palette::has_random_ticking_fluid,
     },
     generation::get_world_gen,
     tick::{OrderedTick, ScheduledTick, TickPriority},
@@ -18,6 +16,7 @@ use crate::{
 };
 use arc_swap::ArcSwap;
 use dashmap::{DashMap, Entry};
+use pumpkin_chunk::{BlockStateId, has_random_ticking_fluid};
 use pumpkin_config::{chunk::ChunkConfig, lighting::LightingEngineConfig, world::LevelConfig};
 use pumpkin_data::biome::Biome;
 use pumpkin_data::dimension::Dimension;

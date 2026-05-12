@@ -11,7 +11,8 @@ members = [
     "pumpkin/",
     "pumpkin-data",
     "pumpkin-plugin-api",
-    "pumpkin-codecs"
+    "pumpkin-codecs",
+    "pumpkin-chunk"
 ]
 exclude = ["pumpkin-codegen"]
 
@@ -150,6 +151,7 @@ pumpkin-nbt = { path = "pumpkin-nbt" }
 pumpkin-protocol = { path = "pumpkin-protocol" }
 pumpkin-util = { path = "pumpkin-util" }
 pumpkin-world = { path = "pumpkin-world" }
+pumpkin-chunk = { path = "pumpkin-chunk" }
 quote = "1.0"
 rand = "0.10.1"
 rsa = "=0.10.0-rc.18"

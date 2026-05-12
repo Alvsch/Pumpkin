@@ -19,9 +19,6 @@ pub mod tick;
 pub mod world;
 pub mod world_info;
 
-pub type BlockId = u16;
-pub type BlockStateId = u16;
-
 pub const CURRENT_MC_VERSION: &str = "26.1";
 
 pub const CURRENT_BEDROCK_MC_VERSION: &str = "1.26.20";

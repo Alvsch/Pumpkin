@@ -1,7 +1,8 @@
 use std::pin::Pin;
 
-use crate::{BlockStateId, generation::proto_chunk::GenerationCache};
+use crate::generation::proto_chunk::GenerationCache;
 use bitflags::bitflags;
+use pumpkin_chunk::BlockStateId;
 use pumpkin_data::{Block, BlockState, chunk::Biome};
 use pumpkin_util::math::position::BlockPos;
 use thiserror::Error;

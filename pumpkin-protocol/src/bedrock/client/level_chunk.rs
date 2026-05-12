@@ -1,7 +1,7 @@
 use std::io::{Error, Write};
 
+use pumpkin_chunk::{ChunkData, palette::network::NetworkPalette};
 use pumpkin_macros::packet;
-use pumpkin_world::chunk::{ChunkData, palette::NetworkPalette};
 
 use crate::{
     codec::{var_int::VarInt, var_uint::VarUInt},
@@ -17,16 +17,18 @@ pub struct CLevelChunk<'a> {
 
     // https://gist.github.com/Tomcc/a96af509e275b1af483b25c543cfbf37
     // https://github.com/Mojang/bedrock-protocol-docs/blob/main/additional_docs/SubChunk%20Request%20System%20v1.18.10.md
+    pub x: i32,
+    pub z: i32,
     pub chunk: &'a ChunkData,
 }
 
 impl PacketWrite for CLevelChunk<'_> {
     fn write<W: Write>(&self, writer: &mut W) -> Result<(), Error> {
-        VarInt(self.chunk.x).write(writer)?;
-        VarInt(self.chunk.z).write(writer)?;
+        VarInt(self.x).write(writer)?;
+        VarInt(self.z).write(writer)?;
 
         VarInt(self.dimension).write(writer)?;
-        let sub_chunk_count = self.chunk.section.count as u32;
+        let sub_chunk_count = self.chunk.sections.count as u32;
         debug_assert_eq!(sub_chunk_count, 24);
         VarUInt(sub_chunk_count).write(writer)?;
         self.cache_enabled.write(writer)?;
@@ -34,15 +36,9 @@ impl PacketWrite for CLevelChunk<'_> {
         let mut chunk_data = Vec::new();
         let data_write = &mut chunk_data;
 
-        let block_sections = self
-            .chunk
-            .section
-            .block_sections
-            .read()
-            .map_err(|_| Error::other("block_sections read lock poisoned"))?;
-        let min_y_section = (self.chunk.section.min_y >> 4) as i8;
+        let min_y_section = (self.chunk.sections.min_y >> 4) as i8;
 
-        for (i, block_palette) in block_sections.iter().enumerate() {
+        for (i, block_palette) in self.chunk.sections.block_sections.iter().enumerate() {
             // Version 9: [version:byte][num_storages:byte][sub_chunk_index:byte]
             let y = (i as i8) + min_y_section;
             let num_storages = 1;
@@ -70,7 +66,7 @@ impl PacketWrite for CLevelChunk<'_> {
             }
         }
 
-        for i in 0..self.chunk.section.count {
+        for i in 0..self.chunk.sections.count {
             let num_storages = 1;
             let y = (i as i8) + min_y_section;
             data_write.write_all(&[VERSION, num_storages, y as u8])?;

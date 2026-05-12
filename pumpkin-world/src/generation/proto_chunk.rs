@@ -1,6 +1,7 @@
 use std::pin::Pin;
 use std::sync::Arc;
 
+use pumpkin_chunk::{BlockStateId, CHUNK_AREA, LightContainer, LightData};
 use pumpkin_data::block_properties::is_air;
 use pumpkin_data::chunk::DoublePerlinNoiseParameters;
 use pumpkin_data::dimension::Dimension;
@@ -33,8 +34,6 @@ use super::{
     surface::{MaterialRuleContext, estimate_surface_height, terrain::SurfaceTerrainBuilder},
 };
 use crate::biome::{BiomeSupplier, MultiNoiseBiomeSupplier, end::TheEndBiomeSupplier};
-use crate::chunk::format::LightContainer;
-use crate::chunk::{ChunkData, ChunkHeightmapType, ChunkLight};
 use crate::chunk_system::StagedChunkEnum;
 use crate::generation::height_limit::HeightLimitView;
 use crate::generation::noise::aquifer_sampler::{FluidLevel, FluidLevelSamplerImpl};
@@ -51,9 +50,7 @@ use crate::generation::structure::structures::{
 use crate::generation::structure::try_generate_structure;
 use crate::generation::surface::rule::try_apply_material_rule;
 use crate::{
-    BlockStateId,
     block::RawBlockState,
-    chunk::CHUNK_AREA,
     generation::{biome, positions::chunk_pos},
     world::{BlockAccessor, WorldPortalExt},
 };
@@ -173,7 +170,7 @@ pub struct ProtoChunk {
     height: u16,
     bottom_y: i8,
     pub stage: StagedChunkEnum,
-    pub light: ChunkLight,
+    pub light: LightData,
     pub carving_mask: crate::generation::carver::mask::CarvingMask,
     pub blending_data: Option<crate::generation::blender::blending_data::BlendingData>,
     /// Block entities pending creation when the chunk is finalized.
@@ -237,7 +234,7 @@ impl ProtoChunk {
             height,
             bottom_y: dimension.min_y as i8,
             stage: StagedChunkEnum::Empty,
-            light: ChunkLight {
+            light: LightData {
                 sky_light: (0..section_count)
                     .map(|_| {
                         if dimension.has_skylight {

@@ -1,6 +1,5 @@
+use pumpkin_chunk::BlockStateId;
 use pumpkin_data::{Block, BlockState};
-
-use crate::BlockStateId;
 
 /// Instead of using a memory heavy normal `BlockState` This is used for internal representation in chunks to save memory
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

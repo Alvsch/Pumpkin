@@ -2890,6 +2890,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "pumpkin-chunk"
+version = "0.1.0-dev+26.1"
+dependencies = [
+ "pumpkin-data",
+ "pumpkin-nbt",
+ "pumpkin-util",
+ "rustc-hash",
+ "serde",
+ "tracing",
+]
+
+[[package]]
 name = "pumpkin-codecs"
 version = "0.1.0-dev+26.1"
 dependencies = [
@@ -2982,11 +2994,12 @@ dependencies = [
  "cfb8",
  "flate2",
  "hybrid-array",
+ "pumpkin-chunk",
  "pumpkin-data",
  "pumpkin-macros",
  "pumpkin-nbt",
  "pumpkin-util",
- "pumpkin-world",
+ "rustc-hash",
  "serde",
  "take_mut",
  "thiserror 2.0.18",
@@ -3038,6 +3051,7 @@ dependencies = [
  "futures",
  "itertools 0.14.0",
  "lz4-java-wrc",
+ "pumpkin-chunk",
  "pumpkin-config",
  "pumpkin-data",
  "pumpkin-nbt",

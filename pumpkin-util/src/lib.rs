@@ -88,11 +88,7 @@ macro_rules! assert_eq_delta {
 #[inline]
 #[must_use]
 pub fn encompassing_bits(count: usize) -> u8 {
-    if count == 1 {
-        1
-    } else {
-        count.ilog2() as u8 + u8::from(!count.is_power_of_two())
-    }
+    (usize::BITS - count.saturating_sub(1).leading_zeros()).max(1) as u8
 }
 
 /// Represents actions applied to a player profile that may require moderation or restrictions.
