@@ -51,7 +51,7 @@ pub fn hash_seed(seed: u64) -> i64 {
 
 #[cfg(test)]
 mod test {
-    use pumpkin_chunk::BIOME_NETWORK_MAX_BITS;
+    use pumpkin_chunk::palette::BIOME_NETWORK_MAX_BITS;
     use pumpkin_data::{chunk::Biome, dimension::Dimension};
     use pumpkin_util::read_data_from_file;
     use serde::Deserialize;

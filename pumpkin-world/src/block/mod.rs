@@ -70,7 +70,7 @@ impl BlockStateCodec {
 
 #[cfg(test)]
 mod test {
-    use pumpkin_chunk::BLOCK_NETWORK_MAX_BITS;
+    use pumpkin_chunk::palette::BLOCK_NETWORK_MAX_BITS;
     use pumpkin_data::Block;
 
     #[test]

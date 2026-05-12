@@ -92,7 +92,7 @@ pub enum ChunkSerializingError {
 
 #[cfg(test)]
 mod tests {
-    use pumpkin_chunk::{BlockPalette, Sections};
+    use pumpkin_chunk::{Sections, palette::BlockPalette};
     use pumpkin_data::{Block, block_properties::has_random_ticks};
 
     #[test]

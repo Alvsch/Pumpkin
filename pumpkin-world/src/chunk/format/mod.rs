@@ -5,10 +5,7 @@ use std::{
 };
 
 use bytes::Bytes;
-use pumpkin_chunk::{
-    BiomePalette, BlockPalette, Heightmaps, LightContainer, LightData, SectionBiomes,
-    SectionBlockStates, Sections,
-};
+use pumpkin_chunk::{Heightmaps, LightContainer, LightData, Sections, palette::{BiomePalette, BlockPalette, SectionBiomes, SectionBlockStates}};
 use pumpkin_data::{Block, chunk::ChunkStatus, fluid::Fluid};
 use pumpkin_nbt::compound::NbtCompound;
 use rustc_hash::FxHashMap;

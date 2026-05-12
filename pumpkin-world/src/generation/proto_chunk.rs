@@ -1,7 +1,7 @@
 use std::pin::Pin;
 use std::sync::Arc;
 
-use pumpkin_chunk::{BlockStateId, CHUNK_AREA, LightContainer, LightData};
+use pumpkin_chunk::{BlockStateId, CHUNK_AREA, HeightmapType, LightContainer, LightData};
 use pumpkin_data::block_properties::is_air;
 use pumpkin_data::chunk::DoublePerlinNoiseParameters;
 use pumpkin_data::dimension::Dimension;
@@ -322,14 +322,14 @@ impl ProtoChunk {
                 let index = ((z << 4) + x) as usize;
 
                 proto_chunk.flat_motion_blocking_height_map[index] = heightmap_data.get(
-                    ChunkHeightmapType::MotionBlocking,
+                    HeightmapType::MotionBlocking,
                     x,
                     z,
                     section_data.min_y,
                 ) as i16;
 
                 proto_chunk.flat_motion_blocking_no_leaves_height_map[index] = heightmap_data.get(
-                    ChunkHeightmapType::MotionBlockingNoLeaves,
+                    HeightmapType::MotionBlockingNoLeaves,
                     x,
                     z,
                     section_data.min_y,
@@ -337,7 +337,7 @@ impl ProtoChunk {
                     as i16;
 
                 proto_chunk.flat_surface_height_map[index] =
-                    heightmap_data.get(ChunkHeightmapType::WorldSurface, x, z, section_data.min_y)
+                    heightmap_data.get(HeightmapType::WorldSurface, x, z, section_data.min_y)
                         as i16;
             }
         }

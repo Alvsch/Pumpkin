@@ -249,7 +249,7 @@ impl Chunk {
         let proto_chunk = *proto_chunk_box;
 
         let total_sections = dimension.height as usize / 16;
-        let sections = ChunkSections::new(total_sections, dimension.min_y);
+        let sections = Sections::new(total_sections, dimension.min_y);
 
         let proto_biome_height = biome_coords::from_block(proto_chunk.height() as i32);
         let biome_min_y = biome_coords::from_block(dimension.min_y);
