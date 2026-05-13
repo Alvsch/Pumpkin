@@ -32,6 +32,7 @@ thiserror.workspace = true
 serde.workspace = true
 tracing.workspace = true
 crossbeam.workspace = true
+parking_lot.workspace = true
 
 sha2.workspace = true
 bitflags.workspace = true

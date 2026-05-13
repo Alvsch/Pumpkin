@@ -321,12 +321,9 @@ impl ProtoChunk {
             for x in 0..16 {
                 let index = ((z << 4) + x) as usize;
 
-                proto_chunk.flat_motion_blocking_height_map[index] = heightmap_data.get(
-                    HeightmapType::MotionBlocking,
-                    x,
-                    z,
-                    section_data.min_y,
-                ) as i16;
+                proto_chunk.flat_motion_blocking_height_map[index] =
+                    heightmap_data.get(HeightmapType::MotionBlocking, x, z, section_data.min_y)
+                        as i16;
 
                 proto_chunk.flat_motion_blocking_no_leaves_height_map[index] = heightmap_data.get(
                     HeightmapType::MotionBlockingNoLeaves,

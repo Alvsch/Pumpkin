@@ -6,7 +6,7 @@ use crate::lighting::DynamicLightEngine;
 use crate::{
     block::RawBlockState,
     chunk::{
-        ChunkEntityData, ChunkReadingError,
+        ChunkReadingError,
         format::anvil::AnvilChunkFile,
         io::{Dirtiable, FileIO, LoadedData, file_manager::ChunkFileManager},
     },
@@ -16,7 +16,7 @@ use crate::{
 };
 use arc_swap::ArcSwap;
 use dashmap::{DashMap, Entry};
-use pumpkin_chunk::{BlockStateId, has_random_ticking_fluid};
+use pumpkin_chunk::{BlockStateId, ChunkData, EntityData, has_random_ticking_fluid};
 use pumpkin_config::{chunk::ChunkConfig, lighting::LightingEngineConfig, world::LevelConfig};
 use pumpkin_data::biome::Biome;
 use pumpkin_data::dimension::Dimension;
@@ -46,7 +46,7 @@ use tokio::{
 use tokio_util::task::TaskTracker;
 
 pub type SyncChunk = Arc<ChunkData>;
-pub type SyncEntityChunk = Arc<ChunkEntityData>;
+pub type SyncEntityChunk = Arc<EntityData>;
 
 /// The `Level` module provides functionality for working with chunks within or outside a Minecraft world.
 ///
@@ -235,10 +235,10 @@ impl Level {
         let level = self.clone();
         if let Some(pool) = &self.gen_pool {
             pool.spawn(move || {
-                let arc_chunk = Arc::new(ChunkEntityData {
+                let arc_chunk = Arc::new(EntityData {
                     x: pos.x,
                     z: pos.y,
-                    data: tokio::sync::Mutex::new(FxHashMap::default()),
+                    data: parking_lot::Mutex::new(FxHashMap::default()),
                     dirty: AtomicBool::new(true),
                 });
 
@@ -256,10 +256,10 @@ impl Level {
             thread::Builder::new()
                 .name(format!("Entity Gen {pos:?}"))
                 .spawn(move || {
-                    let arc_chunk = Arc::new(ChunkEntityData {
+                    let arc_chunk = Arc::new(EntityData {
                         x: pos.x,
                         z: pos.y,
-                        data: tokio::sync::Mutex::new(FxHashMap::default()),
+                        data: parking_lot::Mutex::new(FxHashMap::default()),
                         dirty: AtomicBool::new(true),
                     });
 
@@ -449,13 +449,12 @@ impl Level {
                 let chunk = chunk.value();
                 let chunk_x_base = chunk.x * 16;
                 let chunk_z_base = chunk.z * 16;
-                let section_count = chunk.section.count;
+                let section_count = chunk.sections.count;
 
                 // Use the bitmask to skip sections
-                let mask = chunk.section.randomly_ticking_mask.load(Ordering::Relaxed);
+                let mask = chunk.sections.randomly_ticking_mask.load(Ordering::Relaxed);
                 if mask != 0 {
-                    let sections = chunk.section.block_sections.read().unwrap();
-                    let min_y = chunk.section.min_y;
+                    let min_y = chunk.sections.min_y;
 
                     for i in 0..section_count {
                         if (mask & (1 << i)) == 0 {
@@ -468,7 +467,11 @@ impl Level {
                             let z_offset = (r >> 8 & 0xF) as usize;
                             let y_in_section = ((r >> 4) & 0xF) as usize;
 
-                            let block_state_id = sections[i].get(x_offset, y_in_section, z_offset);
+                            let block_state_id = chunk.sections.block_sections[i].get(
+                                x_offset,
+                                y_in_section,
+                                z_offset,
+                            );
                             let tick_block = has_random_ticks(block_state_id);
                             let tick_fluid = has_random_ticking_fluid(block_state_id);
                             if tick_block || tick_fluid {
@@ -700,7 +703,7 @@ impl Level {
         let (chunk_coordinate, relative) = position.chunk_and_chunk_relative_position();
         let id = self
             .get_or_fetch_chunk(chunk_coordinate, |chunk| {
-                chunk.section.get_block_absolute_y(
+                chunk.sections.get_block_absolute_y(
                     relative.x as usize,
                     relative.y,
                     relative.z as usize,
@@ -714,7 +717,7 @@ impl Level {
         let (chunk_coordinate, relative) = position.chunk_and_chunk_relative_position();
         let id = self
             .get_or_fetch_chunk(chunk_coordinate, |chunk| {
-                chunk.section.get_rough_biome_absolute_y(
+                chunk.sections.get_rough_biome_absolute_y(
                     relative.x as usize,
                     relative.y,
                     relative.z as usize,
@@ -822,7 +825,7 @@ impl Level {
     pub fn try_get_entity_chunk(
         &self,
         coordinates: Vector2<i32>,
-    ) -> Option<dashmap::mapref::one::Ref<'_, Vector2<i32>, Arc<ChunkEntityData>>> {
+    ) -> Option<dashmap::mapref::one::Ref<'_, Vector2<i32>, Arc<EntityData>>> {
         self.loaded_entity_chunks.try_get(&coordinates).try_unwrap()
     }
 

@@ -9,9 +9,19 @@ license.workspace = true
 pumpkin-util.workspace = true
 pumpkin-nbt.workspace = true
 pumpkin-data.workspace = true
+pumpkin-config.workspace = true
 
+tokio = { workspace = true, features = ["io-util"] }
+bytes.workspace = true
 rustc-hash.workspace = true
 serde.workspace = true
+parking_lot.workspace = true
+uuid.workspace = true
+enum_dispatch.workspace = true
+thiserror.workspace = true
+
+flate2.workspace = true
+lz4-java-wrc.workspace = true
 
 tracing.workspace = true
 

@@ -5,6 +5,7 @@ use std::{
 };
 
 use futures::future::join_all;
+use pumpkin_chunk::{ChunkData, io::{ChunkCache, Dirtiable, format::{ChunkFormat, ChunkReadingError}}};
 use pumpkin_util::math::vector2::Vector2;
 use tokio::{
     join,
@@ -14,13 +15,12 @@ use tracing::{debug, error, trace};
 
 use crate::{
     chunk::{
-        ChunkReadingError, ChunkWritingError,
-        io::{BoxFuture, Dirtiable},
+        ChunkWritingError, io::{BoxFuture, FileIO},
     },
     level::LevelFolder,
 };
 
-use super::{ChunkSerializer, FileIO, LoadedData};
+use super::{ChunkSerializer, LoadedData};
 
 /// A simple implementation of the `ChunkSerializer` trait that loads and saves data
 /// to disk using parallelism and a lazy-loading cache keyed by file path.
@@ -188,13 +188,12 @@ impl<S: ChunkSerializer<WriteBackend = PathBuf>> ChunkFileManager<S> {
     }
 }
 
-impl<P, S> FileIO for ChunkFileManager<S>
+impl<P, F> FileIO for ChunkCache<F>
 where
     P: PathFromLevelFolder + Send + Sync + Sized + Dirtiable + 'static,
-    S: ChunkSerializer<Data = P, WriteBackend = PathBuf>,
-    S::ChunkConfig: Send + Sync,
+    F: ChunkFormat,
 {
-    type Data = Arc<S::Data>;
+    type Data = ChunkData;
 
     fn watch_chunks<'a>(
         &'a self,
@@ -204,7 +203,7 @@ where
         Box::pin(async move {
             let paths: Vec<_> = chunks
                 .iter()
-                .map(|c| P::file_path(folder, &S::get_chunk_key(c)))
+                .map(|c| P::file_path(folder, &F::get_chunk_key(c)))
                 .collect();
 
             let mut watchers = self.watchers.write().await;
@@ -222,7 +221,7 @@ where
         Box::pin(async move {
             let paths: Vec<_> = chunks
                 .iter()
-                .map(|c| P::file_path(folder, &S::get_chunk_key(c)))
+                .map(|c| P::file_path(folder, &F::get_chunk_key(c)))
                 .collect();
 
             let mut watchers = self.watchers.write().await;
@@ -255,7 +254,7 @@ where
             let mut regions_chunks: BTreeMap<String, Vec<Vector2<i32>>> = BTreeMap::new();
             for at in chunk_coords {
                 regions_chunks
-                    .entry(S::get_chunk_key(at))
+                    .entry(F::get_chunk_key(at))
                     .or_default()
                     .push(*at);
             }
@@ -280,7 +279,7 @@ where
                     // A bounded channel of 1 keeps backpressure between the
                     // serializer and the caller without unbounded buffering.
                     let (send, mut recv) =
-                        mpsc::channel::<LoadedData<S::Data, ChunkReadingError>>(1);
+                        mpsc::channel::<LoadedData<ChunkData, ChunkReadingError>>(1);
 
                     // Forward received chunks, wrapping them in `Arc`.
                     // Captured move is intentional — `task_stream` is consumed here.
@@ -311,14 +310,14 @@ where
     fn save_chunks<'a>(
         &'a self,
         folder: &'a LevelFolder,
-        chunks_data: Vec<(Vector2<i32>, Self::Data)>,
+        chunks_data: Vec<(Vector2<i32>, ChunkData)>,
     ) -> BoxFuture<'a, Result<(), ChunkWritingError>> {
         Box::pin(async move {
             // Group chunks by region file.
-            let mut regions_chunks: BTreeMap<String, Vec<Self::Data>> = BTreeMap::new();
+            let mut regions_chunks: BTreeMap<String, Vec<ChunkData>> = BTreeMap::new();
             for (at, chunk) in chunks_data {
                 regions_chunks
-                    .entry(S::get_chunk_key(&at))
+                    .entry(F::get_chunk_key(&at))
                     .or_default()
                     .push(chunk);
             }
@@ -409,7 +408,7 @@ where
         Box::pin(async move {
             // Snapshot the current set of loaders under a read-lock so we do
             // not block new insertions longer than necessary.
-            let loaders: Vec<Arc<ChunkSerializerLazyLoader<S>>> =
+            let loaders: Vec<Arc<ChunkSerializerLazyLoader<ChunkData>>> =
                 { self.file_locks.read().await.values().cloned().collect() };
 
             // For each loader that has been initialised, acquire a write-lock

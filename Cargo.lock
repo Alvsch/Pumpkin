@@ -2893,12 +2893,21 @@ dependencies = [
 name = "pumpkin-chunk"
 version = "0.1.0-dev+26.1"
 dependencies = [
+ "bytes",
+ "enum_dispatch",
+ "flate2",
+ "lz4-java-wrc",
+ "parking_lot",
+ "pumpkin-config",
  "pumpkin-data",
  "pumpkin-nbt",
  "pumpkin-util",
  "rustc-hash",
  "serde",
+ "thiserror 2.0.18",
+ "tokio",
  "tracing",
+ "uuid",
 ]
 
 [[package]]
@@ -3051,6 +3060,7 @@ dependencies = [
  "futures",
  "itertools 0.14.0",
  "lz4-java-wrc",
+ "parking_lot",
  "pumpkin-chunk",
  "pumpkin-config",
  "pumpkin-data",

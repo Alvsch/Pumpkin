@@ -1,9 +1,10 @@
 use std::{error, pin::Pin};
 
 use bytes::Bytes;
+use pumpkin_chunk::io::{Dirtiable, format::ChunkReadingError};
 use pumpkin_util::math::vector2::Vector2;
 
-use super::{ChunkReadingError, ChunkWritingError};
+use super::{ChunkWritingError};
 use crate::level::LevelFolder;
 
 pub mod file_manager;
@@ -31,11 +32,6 @@ impl<D: Send, E: error::Error> LoadedData<D, E> {
             Self::Error(err) => LoadedData::Error(err),
         }
     }
-}
-
-pub trait Dirtiable {
-    fn is_dirty(&self) -> bool;
-    fn mark_dirty(&self, flag: bool);
 }
 
 type BoxFuture<'a, T> = Pin<Box<dyn Future<Output = T> + Send + 'a>>;

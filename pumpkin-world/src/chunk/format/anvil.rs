@@ -2,6 +2,7 @@ use bytes::{Buf, BufMut, Bytes};
 use flate2::read::{GzDecoder, GzEncoder, ZlibDecoder, ZlibEncoder};
 use itertools::Itertools;
 use lz4_java_wrc::Context;
+use pumpkin_chunk::io::{Dirtiable, format::{ChunkParsingError, ChunkReadingError}};
 use pumpkin_config::chunk::AnvilChunkConfig;
 use pumpkin_util::math::vector2::Vector2;
 use std::{
@@ -18,9 +19,9 @@ use tokio::{
 use tracing::{debug, trace};
 
 use crate::chunk::{
-    ChunkParsingError, ChunkReadingError, ChunkSerializingError, ChunkWritingError,
+    ChunkWritingError,
     CompressionError,
-    io::{ChunkSerializer, Dirtiable, LoadedData},
+    io::{ChunkSerializer, LoadedData},
 };
 
 /// The side size of a region in chunks (one region is 32x32 chunks)
@@ -506,7 +507,7 @@ impl<S: SingleChunkDataSerializer> Default for AnvilChunkFile<S> {
 pub trait SingleChunkDataSerializer: Send + Sync + Sized + Dirtiable {
     fn to_bytes(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<Bytes, ChunkSerializingError>> + Send + '_>>;
+    ) -> Pin<Box<dyn Future<Output = Result<Bytes, crate::chunk::ChunkWritingError>> + Send + '_>>;
     fn from_bytes(bytes: &Bytes, pos: Vector2<i32>) -> Result<Self, ChunkReadingError>;
     fn position(&self) -> (i32, i32);
 }

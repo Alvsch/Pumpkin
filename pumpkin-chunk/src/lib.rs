@@ -1,7 +1,9 @@
 use pumpkin_data::fluid::Fluid;
 
 mod chunk_data;
+mod entity_data;
 mod heightmaps;
+pub mod io;
 mod light_data;
 pub mod palette;
 mod sections;
@@ -9,6 +11,7 @@ mod sections;
 use crate::palette::{BiomePalette, BlockPalette};
 pub use crate::{
     chunk_data::ChunkData,
+    entity_data::EntityData,
     heightmaps::{HeightmapType, Heightmaps},
     light_data::{LightContainer, LightData},
     sections::Sections,
