@@ -54,6 +54,7 @@ use tokio_util::task::TaskTracker;
 
 mod connection_cache;
 mod key_store;
+#[cfg(feature = "wasm")]
 pub mod scheduler;
 pub mod seasonal_events;
 pub mod tick_rate_manager;
@@ -62,6 +63,7 @@ pub mod ticker;
 use crate::command::args::entities::{
     EntityFilter, EntityFilterSort, EntitySelectorType, TargetSelector, ValueCondition,
 };
+#[cfg(feature = "wasm")]
 use crate::server::scheduler::TaskScheduler;
 
 /// Represents a Minecraft server instance.
@@ -127,6 +129,7 @@ pub struct Server {
     /// Player idle timeout in minutes (0 = disabled)
     pub player_idle_timeout: AtomicI32,
     /// Manages scheduled tasks (e.g. from plugins)
+    #[cfg(feature = "wasm")]
     pub task_scheduler: Arc<TaskScheduler>,
     tasks: TaskTracker,
 
@@ -247,6 +250,7 @@ impl Server {
             aggregated_tick_times_nanos: AtomicI64::new(0),
             tick_count: AtomicI32::new(0),
             tasks: TaskTracker::new(),
+            #[cfg(feature = "wasm")]
             task_scheduler: Arc::new(TaskScheduler::new()),
             server_guid: rand::random(),
             player_idle_timeout: AtomicI32::new(0),
@@ -847,6 +851,7 @@ impl Server {
     }
     /// Ticks the game logic for all worlds. This is the part that is affected by `/tick freeze`.
     pub async fn tick_worlds(self: &Arc<Self>) {
+        #[cfg(feature = "wasm")]
         self.task_scheduler.tick(self).await;
 
         let mut set = JoinSet::new();

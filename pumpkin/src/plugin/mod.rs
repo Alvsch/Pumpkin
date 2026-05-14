@@ -24,7 +24,7 @@ pub mod loader;
 /// host features.
 pub mod permissions;
 
-use crate::{LOGGER_IMPL, plugin::loader::wasm::WasmPluginLoader, server::Server};
+use crate::{LOGGER_IMPL, server::Server};
 pub use api::*;
 
 pub type BoxFuture<'a, T> = Pin<Box<dyn Future<Output = T> + Send + 'a>>;
@@ -228,7 +228,8 @@ impl Default for PluginManager {
             plugins: RwLock::new(Vec::new()),
             loaders: RwLock::new(vec![
                 Arc::new(NativePluginLoader),
-                Arc::new(WasmPluginLoader),
+                #[cfg(feature = "wasm")]
+                Arc::new(plugin::loader::wasm::WasmPluginLoader),
             ]),
             server: RwLock::new(None),
             handlers: Arc::new(RwLock::new(HashMap::new())),
